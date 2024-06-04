@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
 import { fadeAnimation } from "@/utils/variants";
+import { NavLink } from "react-router-dom";
 const Header = () => {
   const location = useLocation();
 
@@ -33,18 +34,30 @@ const Header = () => {
 
           {/* center */}
           <ul className="hidden space-x-6 lg:flex">
-            <Link to={"/"} className="text-[#fff]">
+            <NavLink
+              to={"/"}
+              className="text-[#fff] transition-colors hover:text-[#f7b814]"
+            >
               <li>Home</li>
-            </Link>
-            <Link to={"/"} className="text-[#fff]">
+            </NavLink>
+            <NavLink
+              to={"/about"}
+              className="text-[#fff] transition-colors hover:text-[#f7b814]"
+            >
               <li>About</li>
-            </Link>
-            <Link to={"/"} className="text-[#fff]">
+            </NavLink>
+            <NavLink
+              to={"/services"}
+              className="text-[#fff] transition-colors hover:text-[#f7b814]"
+            >
               <li>Services</li>
-            </Link>
-            <Link to={"/"} className="text-[#fff]">
+            </NavLink>
+            <NavLink
+              to={"/contact"}
+              className="text-[#fff] transition-colors hover:text-[#f7b814]"
+            >
               <li>Contact</li>
-            </Link>
+            </NavLink>
           </ul>
           {/* center */}
 
@@ -89,25 +102,25 @@ const Header = () => {
                   <ul className="mt-10 flex flex-col space-y-6">
                     <Link
                       to={"/"}
-                      className="text-center text-[#000] dark:text-[#fff]"
+                      className="text-center text-[#000] transition-colors hover:text-[#f7b814] dark:text-[#fff]"
                     >
                       Home
                     </Link>
                     <Link
                       to={"/"}
-                      className="text-center text-[#000] dark:text-[#fff]"
+                      className="text-center text-[#000] transition-colors hover:text-[#f7b814] dark:text-[#fff]"
                     >
                       About
                     </Link>
                     <Link
                       to={"/"}
-                      className="text-center text-[#000] dark:text-[#fff]"
+                      className="text-center text-[#000] transition-colors hover:text-[#f7b814] dark:text-[#fff]"
                     >
                       Services
                     </Link>
                     <Link
                       to={"/"}
-                      className="text-center text-[#000] dark:text-[#fff]"
+                      className="text-center text-[#000] transition-colors hover:text-[#f7b814] dark:text-[#fff]"
                     >
                       Contact
                     </Link>

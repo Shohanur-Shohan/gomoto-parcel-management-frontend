@@ -35,7 +35,7 @@ const Hero = () => {
                 <Input
                   type="text"
                   placeholder="Search here..."
-                  className="rounded-full py-[25px] pl-[1rem]"
+                  className="rounded-full border border-transparent py-[25px] pl-[1rem] outline-none dark:border-[#383942]"
                 />
                 <Button
                   type="submit"
