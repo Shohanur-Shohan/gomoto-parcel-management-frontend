@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <div className="relative flex min-h-[100vh] w-full items-center overflow-hidden bg-[url('/assets/slider-eclipse.png')] bg-cover bg-no-repeat">
+    <section className="relative flex min-h-[100vh] w-full items-center overflow-hidden bg-[url('/assets/slider-eclipse.png')] bg-cover bg-no-repeat">
       <div className="z-10 mx-auto grid h-full max-w-[1570px] grid-cols-1 items-center justify-between px-2 md:px-4 lg:grid-cols-4">
         <motion.div
           variants={fadeAnimation("right", 0.4)}
@@ -48,7 +48,7 @@ const Hero = () => {
           </div>
         </motion.div>
         <motion.div
-          variants={fadeAnimation("left", 0.4)}
+          variants={fadeAnimation("left", 0.6)}
           initial="hidden"
           whileInView="show"
           className="col-span-1 p-0 sm:p-4 md:p-8 lg:col-span-2 lg:p-0"
@@ -61,7 +61,7 @@ const Hero = () => {
         </motion.div>
       </div>
       <div className="absolute -bottom-[200px] left-[50%] z-0 h-full w-full max-w-[1400px] -translate-x-[50%] bg-[url('/assets/slider-glob.png')] bg-cover bg-bottom bg-no-repeat md:mt-[200px] lg:-bottom-[100px] lg:mt-0 lg:bg-contain"></div>
-    </div>
+    </section>
   );
 };
 
