@@ -1,4 +1,6 @@
-import { Button } from "../ui/button";
+// import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const Hero = () => {
   return (
@@ -11,18 +13,31 @@ const Hero = () => {
               <span className="block text-[#F7B714]">Parcel Delivery</span>
             </h1>
             <p className="font-catamaran mb-[36px] mt-[18px] px-[3%] text-center text-[14px] text-white sm:px-[6%] md:px-[10%] md:text-[16px] lg:px-0 lg:pr-8 lg:text-left">
-              Welcome to Express Home Delivery! Fast, reliable, and convenient
+              Welcome to Express Parcel Delivery! Fast, reliable, and convenient
               service right to your door. Shop online with ease and enjoy
               hassle-free delivery tailored to your schedule. Your satisfaction
               is our priority.
             </p>
-            <div className="flex justify-center w-full cursor-pointer lg:justify-start">
-              <Button
+            <div className="flex w-full cursor-pointer justify-center lg:justify-start">
+              {/* <Button
                 variant={"default"}
                 className="z-10 rounded-full px-[45px] py-[30px] text-[18px] font-bold text-black sm:px-[60px] md:py-[35px]"
               >
                 Read More
-              </Button>
+              </Button> */}
+              <div className="relative flex w-full max-w-sm items-center">
+                <Input
+                  type="text"
+                  placeholder="Search here..."
+                  className="rounded-full py-[25px] pl-[1rem]"
+                />
+                <Button
+                  type="submit"
+                  className="absolute right-[0.5rem] px-[30px] text-[16px] font-medium"
+                >
+                  Search
+                </Button>
+              </div>
             </div>
           </div>
         </div>

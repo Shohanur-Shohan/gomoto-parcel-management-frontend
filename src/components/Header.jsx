@@ -71,7 +71,7 @@ const Header = () => {
               variant={"default"}
               className="hidden h-[48px] rounded-full px-[40px] text-[18px] font-bold text-black sm:flex"
             >
-              <Link to={"/login"}>Dashboard</Link>
+              <Link to={"/login"}>Login</Link>
             </Button>
             {/* mobile navicon */}
             <div className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 text-sm font-semibold text-white md:hidden">
@@ -80,7 +80,7 @@ const Header = () => {
                   <Menu size={24} />
                 </SheetTrigger>
                 <SheetContent>
-                  <ul className="flex flex-col mt-10 space-y-6">
+                  <ul className="mt-10 flex flex-col space-y-6">
                     <Link
                       to={"/"}
                       className="text-center text-[#000] dark:text-[#fff]"
