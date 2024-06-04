@@ -6,7 +6,8 @@ import { Menu } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
+import { motion } from "framer-motion";
+import { fadeAnimation } from "@/utils/variants";
 const Header = () => {
   const location = useLocation();
 
@@ -14,7 +15,12 @@ const Header = () => {
     <header
       className={`${location?.pathname === "/" ? "absolute" : "bg-[#282932]"} left-0 top-0 z-50 w-full`}
     >
-      <nav className="mx-auto max-w-[1570px] px-2 md:px-4">
+      <motion.nav
+        variants={fadeAnimation("down", 0.2)}
+        initial="hidden"
+        whileInView="show"
+        className="mx-auto max-w-[1570px] px-2 md:px-4"
+      >
         <div className="flex w-full items-center justify-between border-b border-dashed border-[#fff]/15 py-[28px]">
           {/* start */}
           <Link to={"/"}>
@@ -28,16 +34,16 @@ const Header = () => {
           {/* center */}
           <ul className="hidden space-x-6 lg:flex">
             <Link to={"/"} className="text-[#fff]">
-              Home
+              <li>Home</li>
             </Link>
             <Link to={"/"} className="text-[#fff]">
-              About
+              <li>About</li>
             </Link>
             <Link to={"/"} className="text-[#fff]">
-              Services
+              <li>Services</li>
             </Link>
             <Link to={"/"} className="text-[#fff]">
-              Contact
+              <li>Contact</li>
             </Link>
           </ul>
           {/* center */}
@@ -120,7 +126,7 @@ const Header = () => {
 
           {/* end */}
         </div>
-      </nav>
+      </motion.nav>
     </header>
   );
 };

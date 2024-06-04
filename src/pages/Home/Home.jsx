@@ -4,6 +4,7 @@ const Home = () => {
   return (
     <>
       <Hero />
+      <div className="h-[100vh]"></div>
     </>
   );
 };
