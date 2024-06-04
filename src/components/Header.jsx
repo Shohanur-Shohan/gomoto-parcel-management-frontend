@@ -24,6 +24,7 @@ const Header = () => {
             />
           </Link>
           {/* start */}
+
           {/* center */}
           <ul className="hidden space-x-6 lg:flex">
             <Link to={"/"} className="text-[#fff]">
@@ -40,6 +41,7 @@ const Header = () => {
             </Link>
           </ul>
           {/* center */}
+
           {/* end */}
           <div className="flex items-center justify-end space-x-2">
             {/* notification */}
@@ -52,10 +54,9 @@ const Header = () => {
             {/* notification */}
 
             {/* //theme toggler */}
-            {/* <div className="h-[30px] w-[30px] sm:h-[40px] sm:w-[40px]"> */}
             <ModeToggle />
-            {/* </div> */}
             {/* //theme toggler */}
+
             {/* avatar */}
             <Avatar className="h-[35px] w-[35px] sm:h-[40px] sm:w-[40px]">
               <AvatarImage src="https://github.com/shadcn.png" />
