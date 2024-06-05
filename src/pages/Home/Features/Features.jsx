@@ -39,7 +39,7 @@ const Features = () => {
           whileInView="show"
           className="col-span-1"
         >
-          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327]">
+          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent className="p-4">
               <Lottie
                 animationData={feature1}
@@ -61,7 +61,7 @@ const Features = () => {
           whileInView="show"
           className="col-span-1"
         >
-          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327]">
+          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent>
               <Lottie
                 animationData={feature2}
@@ -83,7 +83,7 @@ const Features = () => {
           whileInView="show"
           className="col-span-1"
         >
-          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327]">
+          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent>
               <Lottie
                 animationData={feature3}
@@ -105,7 +105,7 @@ const Features = () => {
           whileInView="show"
           className="col-span-1"
         >
-          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327]">
+          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent>
               <Lottie
                 animationData={feature4}

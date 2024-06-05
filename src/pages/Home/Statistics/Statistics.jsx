@@ -35,7 +35,7 @@ const Statistics = () => {
           whileInView="show"
           className="col-span-1"
         >
-          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] sm:max-w-full">
+          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent className="p-4 text-center">
               <CountUp
                 end={100}
@@ -50,12 +50,12 @@ const Statistics = () => {
           </Card>
         </motion.div>
         <motion.div
-          variants={fadeAnimation("up", 0.8)}
+          variants={fadeAnimation("up", 0.6)}
           initial="hidden"
           whileInView="show"
           className="col-span-1"
         >
-          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] sm:max-w-full">
+          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent className="p-4 text-center">
               <CountUp
                 end={100}
@@ -70,12 +70,12 @@ const Statistics = () => {
           </Card>
         </motion.div>
         <motion.div
-          variants={fadeAnimation("up", 1)}
+          variants={fadeAnimation("up", 0.8)}
           initial="hidden"
           whileInView="show"
           className="col-span-1"
         >
-          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] sm:max-w-full">
+          <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent className="p-4 text-center">
               <CountUp
                 end={100}
