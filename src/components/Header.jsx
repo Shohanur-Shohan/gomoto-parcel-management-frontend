@@ -9,6 +9,16 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
 import { fadeAnimation } from "@/utils/variants";
 import { NavLink } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 const Header = () => {
   const location = useLocation();
 
@@ -77,12 +87,25 @@ const Header = () => {
             {/* //theme toggler */}
 
             {/* avatar */}
-            <Avatar className="h-[35px] w-[35px] sm:h-[40px] sm:w-[40px]">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>
-                <img src="/assets/avatar.svg" />
-              </AvatarFallback>
-            </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="h-[35px] w-[35px] sm:h-[40px] sm:w-[40px]">
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>
+                    <img src="/assets/avatar.svg" />
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-[170px]">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Shohanur Shohan</DropdownMenuItem>
+                <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Logout</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* avatar */}
 

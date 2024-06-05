@@ -10,24 +10,35 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { fadeAnimation } from "@/utils/variants";
 
 const Features = () => {
   return (
     <section className="mb-[50px] mt-[100px]">
-      <div className="col-span-1">
+      <motion.div
+        variants={fadeAnimation("up", 0.2)}
+        initial="hidden"
+        whileInView="show"
+      >
         <Card className="mx-auto max-w-[360px] border-none shadow-none dark:bg-transparent sm:m-0 sm:max-w-full">
           <CardHeader className="mb-[40px] bg-none text-center dark:bg-transparent">
-            <CardDescription className="font-bold text-[#f7b814]">
-              Our Services
+            <CardDescription className="text-[16px] font-bold text-[#f7b814]">
+              Features
             </CardDescription>
             <CardTitle className="mx-auto max-w-[530px] text-[25px] font-semibold leading-[35px] sm:text-[34px] sm:leading-[45px] md:text-[48px] md:leading-[55px]">
               Try us and see how good our services are.
             </CardTitle>
           </CardHeader>
         </Card>
-      </div>
+      </motion.div>
       <div className="mx-auto grid max-w-[1570px] grid-cols-1 items-center justify-between gap-6 px-2 sm:grid-cols-2 md:px-4 lg:grid-cols-3 xl:grid-cols-4">
-        <div className="col-span-1">
+        <motion.div
+          variants={fadeAnimation("up", 0.4)}
+          initial="hidden"
+          whileInView="show"
+          className="col-span-1"
+        >
           <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327]">
             <CardContent className="p-4">
               <Lottie
@@ -38,13 +49,18 @@ const Features = () => {
             </CardContent>
             <CardHeader className="text-center">
               <CardTitle>Swift Delivery</CardTitle>
-              <CardDescription>
+              <CardDescription className="font-catamaran">
                 Fast and efficient delivery service.
               </CardDescription>
             </CardHeader>
           </Card>
-        </div>
-        <div className="col-span-1">
+        </motion.div>
+        <motion.div
+          variants={fadeAnimation("up", 0.6)}
+          initial="hidden"
+          whileInView="show"
+          className="col-span-1"
+        >
           <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327]">
             <CardContent>
               <Lottie
@@ -55,13 +71,18 @@ const Features = () => {
             </CardContent>
             <CardHeader className="text-center">
               <CardTitle>Trusted Service</CardTitle>
-              <CardDescription>
+              <CardDescription className="font-catamaran">
                 Reliable and dependable delivery solutions.
               </CardDescription>
             </CardHeader>
           </Card>
-        </div>
-        <div className="col-span-1">
+        </motion.div>
+        <motion.div
+          variants={fadeAnimation("up", 0.8)}
+          initial="hidden"
+          whileInView="show"
+          className="col-span-1"
+        >
           <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327]">
             <CardContent>
               <Lottie
@@ -72,13 +93,18 @@ const Features = () => {
             </CardContent>
             <CardHeader className="text-center">
               <CardTitle>Vaccinated Courier</CardTitle>
-              <CardDescription>
+              <CardDescription className="font-catamaran">
                 Ensuring safety with vaccinated couriers.
               </CardDescription>
             </CardHeader>
           </Card>
-        </div>
-        <div className="col-span-1">
+        </motion.div>
+        <motion.div
+          variants={fadeAnimation("up", 1)}
+          initial="hidden"
+          whileInView="show"
+          className="col-span-1"
+        >
           <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327]">
             <CardContent>
               <Lottie
@@ -89,12 +115,12 @@ const Features = () => {
             </CardContent>
             <CardHeader className="text-center">
               <CardTitle>Safety Protocol</CardTitle>
-              <CardDescription>
+              <CardDescription className="font-catamaran">
                 Following strict safety measures for security.
               </CardDescription>
             </CardHeader>
           </Card>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
