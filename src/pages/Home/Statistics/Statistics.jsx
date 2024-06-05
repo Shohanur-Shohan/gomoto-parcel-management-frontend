@@ -41,7 +41,7 @@ const Statistics = () => {
                 end={100}
                 start={0}
                 duration={5}
-                className="text-center text-[70px]"
+                className="text-center text-[70px] font-semibold"
               />
             </CardContent>
             <CardHeader className="pt-0 text-center">
@@ -61,7 +61,7 @@ const Statistics = () => {
                 end={100}
                 start={0}
                 duration={5}
-                className="text-center text-[70px]"
+                className="text-center text-[70px] font-semibold"
               />
             </CardContent>
             <CardHeader className="pt-0 text-center">
@@ -81,7 +81,7 @@ const Statistics = () => {
                 end={100}
                 start={0}
                 duration={5}
-                className="text-center text-[70px]"
+                className="text-center text-[70px] font-semibold"
               />
             </CardContent>
             <CardHeader className="pt-0 text-center">
