@@ -39,7 +39,7 @@ const Hero = () => {
                 />
                 <Button
                   type="submit"
-                  className="absolute right-[0.5rem] px-[30px] text-[16px] font-medium"
+                  className="absolute right-[0.5rem] rounded-full px-[30px] text-[16px] font-medium"
                 >
                   Search
                 </Button>

@@ -116,7 +116,7 @@ const Header = () => {
               <Link to={"/login"}>Login</Link>
             </Button>
             {/* mobile navicon */}
-            <div className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 text-sm font-semibold text-white md:hidden">
+            <div className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 text-sm font-semibold text-white lg:hidden">
               <Sheet>
                 <SheetTrigger>
                   <Menu size={24} />
