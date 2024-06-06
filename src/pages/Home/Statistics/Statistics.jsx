@@ -8,14 +8,18 @@ import {
 import { motion } from "framer-motion";
 import { fadeAnimation } from "@/utils/variants";
 import CountUp from "react-countup";
+import { useState } from "react";
 
 const Statistics = () => {
+  const [startCount, setStartCount] = useState(false);
+
   return (
     <section className="mb-[50px] mt-[100px]">
       <motion.div
         variants={fadeAnimation("up", 0.2)}
         initial="hidden"
         whileInView="show"
+        onAnimationComplete={() => setStartCount(true)}
       >
         <Card className="mx-auto max-w-[360px] border-none shadow-none dark:bg-transparent sm:m-0 sm:max-w-full">
           <CardHeader className="mb-[40px] bg-none text-center dark:bg-transparent">
@@ -37,12 +41,16 @@ const Statistics = () => {
         >
           <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent className="p-4 text-center">
-              <CountUp
-                end={100}
-                start={0}
-                duration={5}
-                className="text-center text-[70px] font-semibold"
-              />
+              {startCount ? (
+                <CountUp
+                  end={100}
+                  start={0}
+                  duration={4}
+                  className="text-center text-[70px] font-semibold"
+                />
+              ) : (
+                <p className="text-center text-[70px] font-semibold">0</p>
+              )}
             </CardContent>
             <CardHeader className="pt-0 text-center">
               <CardTitle>Parcels Booked</CardTitle>
@@ -57,12 +65,16 @@ const Statistics = () => {
         >
           <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent className="p-4 text-center">
-              <CountUp
-                end={100}
-                start={0}
-                duration={5}
-                className="text-center text-[70px] font-semibold"
-              />
+              {startCount ? (
+                <CountUp
+                  end={100}
+                  start={0}
+                  duration={4}
+                  className="text-center text-[70px] font-semibold"
+                />
+              ) : (
+                <p className="text-center text-[70px] font-semibold">0</p>
+              )}
             </CardContent>
             <CardHeader className="pt-0 text-center">
               <CardTitle>Parcels Delivered</CardTitle>
@@ -77,12 +89,16 @@ const Statistics = () => {
         >
           <Card className="mx-auto max-w-[370px] dark:border-transparent dark:bg-[#222327] md:max-w-full">
             <CardContent className="p-4 text-center">
-              <CountUp
-                end={100}
-                start={0}
-                duration={5}
-                className="text-center text-[70px] font-semibold"
-              />
+              {startCount ? (
+                <CountUp
+                  end={100}
+                  start={0}
+                  duration={4}
+                  className="text-center text-[70px] font-semibold"
+                />
+              ) : (
+                <p className="text-center text-[70px] font-semibold">0</p>
+              )}
             </CardContent>
             <CardHeader className="pt-0 text-center">
               <CardTitle>Registered Users</CardTitle>
