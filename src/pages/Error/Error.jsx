@@ -8,7 +8,7 @@ const Error = () => {
         <div className="m-auto text-center">
           <div>
             <svg
-              className="w-[90vw] sm:w-[50vw]"
+              className="w-[90vw] sm:w-[50vw] lg:w-[40vw]"
               viewBox="0 0 631 379"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

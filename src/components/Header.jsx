@@ -18,13 +18,42 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+import { useScroll } from "framer-motion";
+import { useMotionValueEvent } from "framer-motion";
 
 const Header = () => {
   const location = useLocation();
+  const [isHidden, setIsHidden] = useState(false);
+  const { scrollY } = useScroll();
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useMotionValueEvent(scrollY, "change", (y) => {
+    if (y > lastScrollY) {
+      // Scrolling down
+      setIsHidden(true);
+    } else if (y < lastScrollY) {
+      // Scrolling up
+      setIsHidden(false);
+    }
+    setLastScrollY(y);
+  });
 
   return (
-    <header
-      className={`${location?.pathname === "/" ? "absolute" : "bg-[#282932]"} left-0 top-0 z-50 w-full`}
+    <motion.div
+      animate={isHidden ? "hidden" : "visible"}
+      variants={{
+        hidden: {
+          // y: "-100%",
+          opacity: [0.5, 0],
+        },
+        visible: {
+          // y: "0%",
+          opacity: [0.5, 1],
+        },
+      }}
+      className={`${location?.pathname === "/" ? "fixed bg-[#282932]" : "bg-[#282932]"} left-0 top-0 z-50 w-full`}
+      // className={`fixed left-0 top-0 z-50 w-full bg-[#282932]`}
     >
       <motion.nav
         variants={fadeAnimation("down", 0.2)}
@@ -163,7 +192,7 @@ const Header = () => {
           {/* end */}
         </div>
       </motion.nav>
-    </header>
+    </motion.div>
   );
 };
 
