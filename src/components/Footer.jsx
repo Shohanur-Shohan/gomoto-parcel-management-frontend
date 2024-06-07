@@ -27,13 +27,16 @@ export default function Footer() {
         <div className="flex flex-col gap-2">
           <h5 className="mb-[1rem] text-white">Menu</h5>
           <Link href="/" className="text-muted-foreground">
-            Blog
+            Home
           </Link>
           <Link href="/" className="text-muted-foreground">
-            Authors
+            Services
           </Link>
           <Link href="/" className="text-muted-foreground">
-            Categories
+            About us
+          </Link>
+          <Link href="/" className="text-muted-foreground">
+            Contact
           </Link>
         </div>
         <div className="flex flex-col gap-2">
@@ -65,7 +68,7 @@ export default function Footer() {
         </div>
 
         <p className="text-muted-foreground">
-          © Shohan. All rights reserved. 2024-present.
+          © Shohan. All rights reserved. 2024.
         </p>
       </div>
     </footer>

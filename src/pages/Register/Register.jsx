@@ -94,6 +94,9 @@ const Register = () => {
             <Button type="submit" className="w-full">
               Create an account
             </Button>
+            <p className="text-center text-sm text-gray-400">
+              or continue with
+            </p>
             <Button
               variant="outline"
               className="flex w-full items-center justify-center gap-2"

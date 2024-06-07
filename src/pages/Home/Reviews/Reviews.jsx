@@ -43,7 +43,7 @@ const Reviews = () => {
         variants={fadeAnimation("up", 0.8)}
         initial="hidden"
         whileInView="show"
-        className="mx-auto max-w-[1570px]"
+        className="mx-auto max-w-[1570px] overflow-hidden"
       >
         <Carousel
           plugins={[
@@ -255,8 +255,9 @@ const Reviews = () => {
               </Card>
             </CarouselItem>
           </CarouselContent>
-          {/* <CarouselPrevious />
-          <CarouselNext /> */}
+
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </motion.div>
     </section>

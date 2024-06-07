@@ -62,12 +62,15 @@ const Login = () => {
             <Button type="submit" className="w-full">
               Login
             </Button>
+            <p className="text-center text-sm text-gray-400">
+              or continue with
+            </p>
             <Button
               variant="outline"
               className="flex w-full items-center justify-center gap-2"
             >
               <img className="h-4 w-4" src="/assets/google.svg" />
-              Sign up with Google
+              Sign in with Google
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
