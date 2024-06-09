@@ -4,6 +4,8 @@ import Home from "@/pages/Home/Home";
 import Login from "@/pages/Login/Login";
 import Register from "@/pages/Register/Register";
 import { createBrowserRouter } from "react-router-dom";
+import RoutesByRole from "./RoutesByRole";
+import { Dashboard } from "@/layout/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,17 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+    ],
+  },
+  {
+    path: "dashboard/*",
+    errorElement: <Error />,
+    element: <Dashboard />,
+    children: [
+      {
+        path: "*",
+        element: <RoutesByRole />,
       },
     ],
   },

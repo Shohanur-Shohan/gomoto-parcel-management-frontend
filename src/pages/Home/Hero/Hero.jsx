@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="relative flex min-h-[100vh] w-full items-center overflow-hidden bg-[url('/assets/slider-eclipse.png')] bg-cover bg-no-repeat">
+    <section className="relative flex min-h-[100vh] w-full items-center overflow-hidden bg-[url('/assets/slider-eclipse.png')] bg-cover bg-no-repeat dark:bg-none">
       <div className="z-10 mx-auto grid h-full max-w-[1570px] grid-cols-1 items-center justify-between px-2 md:px-4 lg:grid-cols-4">
         <motion.div
           variants={fadeAnimation("right", 0.4)}

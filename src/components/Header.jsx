@@ -52,7 +52,7 @@ const Header = () => {
           opacity: [0.5, 1],
         },
       }}
-      className={`${location?.pathname === "/" ? "fixed bg-[#282932]" : "bg-[#282932]"} left-0 top-0 z-50 w-full`}
+      className={`${location?.pathname === "/" ? "fixed bg-[#282932]/50" : "bg-[#282932]"} left-0 top-0 z-50 w-full`}
       // className={`fixed left-0 top-0 z-50 w-full bg-[#282932]`}
     >
       <motion.nav
