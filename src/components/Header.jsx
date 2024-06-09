@@ -27,6 +27,7 @@ const Header = () => {
   const [isHidden, setIsHidden] = useState(false);
   const { scrollY } = useScroll();
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [postion, setPosition] = useState(true);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     if (y > lastScrollY) {
@@ -35,6 +36,12 @@ const Header = () => {
     } else if (y < lastScrollY) {
       // Scrolling up
       setIsHidden(false);
+    }
+    if (y > 120) {
+      console.log(y);
+      setPosition(false);
+    } else {
+      setPosition(true);
     }
     setLastScrollY(y);
   });
@@ -52,7 +59,7 @@ const Header = () => {
           opacity: [0.5, 1],
         },
       }}
-      className={`${location?.pathname === "/" ? "fixed bg-[#282932]/50" : "bg-[#282932]"} left-0 top-0 z-50 w-full`}
+      className={`${location?.pathname === "/" ? `fixed ${postion ? "br-transparent" : "bg-[#282932]/50"} ` : "bg-[#282932]"} left-0 top-0 z-50 w-full`}
       // className={`fixed left-0 top-0 z-50 w-full bg-[#282932]`}
     >
       <motion.nav

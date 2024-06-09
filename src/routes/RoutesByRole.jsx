@@ -14,7 +14,7 @@ const RoutesByRole = () => {
 
   const userRoutes = [
     {
-      path: "",
+      path: "my-profile",
       element: <MyProfile />,
     },
     {
@@ -29,7 +29,7 @@ const RoutesByRole = () => {
 
   const deliveryMenRoutes = [
     {
-      path: "",
+      path: "delivery-list",
       element: <MyDeliveryList />,
     },
     {
@@ -40,7 +40,7 @@ const RoutesByRole = () => {
 
   const adminRoutes = [
     {
-      path: "",
+      path: "statistics",
       element: <AppStatistics />,
     },
     {
@@ -63,6 +63,7 @@ const RoutesByRole = () => {
       : role === "delivery_men"
         ? deliveryMenRoutes
         : userRoutes;
+
   return useRoutes(routes);
 };
 
