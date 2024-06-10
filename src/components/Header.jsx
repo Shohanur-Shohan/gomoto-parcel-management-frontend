@@ -21,6 +21,9 @@ import {
 import { useState } from "react";
 import { useScroll } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
+import { Skeleton } from "@/components/ui/skeleton";
+import useAuth from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const location = useLocation();
@@ -28,6 +31,8 @@ const Header = () => {
   const { scrollY } = useScroll();
   const [lastScrollY, setLastScrollY] = useState(0);
   const [postion, setPosition] = useState(true);
+  const [Auth] = useAuth();
+  const { loading, logOut, setLoading, user } = Auth;
 
   useMotionValueEvent(scrollY, "change", (y) => {
     if (y > lastScrollY) {
@@ -38,13 +43,18 @@ const Header = () => {
       setIsHidden(false);
     }
     if (y > 120) {
-      console.log(y);
       setPosition(false);
     } else {
       setPosition(true);
     }
     setLastScrollY(y);
   });
+
+  const handleLogout = () => {
+    logOut();
+    toast.success("Logout Success");
+    setLoading(false);
+  };
 
   return (
     <motion.div
@@ -123,34 +133,49 @@ const Header = () => {
             {/* //theme toggler */}
 
             {/* avatar */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar className="h-[35px] w-[35px] sm:h-[40px] sm:w-[40px]">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>
-                    <img src="/assets/avatar.svg" />
-                  </AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[170px]">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Shohanur Shohan</DropdownMenuItem>
-                <DropdownMenuItem>Dashboard</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+
+            {loading && (
+              <Skeleton className="h-[35px] w-[35px] rounded-full sm:h-[40px] sm:w-[40px]" />
+            )}
+            {user && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="h-[35px] w-[35px] sm:h-[40px] sm:w-[40px]">
+                    <AvatarImage src={user?.photoURL} />
+                    <AvatarFallback>
+                      <img src="/assets/avatar.svg" />
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-[150px]">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>{user?.displayName}</DropdownMenuItem>
+                  <Link to={"/dashboard"}>
+                    <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                  </Link>
+
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
 
             {/* avatar */}
+            {!user && (
+              <Link to={"/login"}>
+                <Button
+                  variant={"default"}
+                  className="hidden h-[48px] rounded-full px-[40px] text-[18px] font-bold text-black sm:flex"
+                >
+                  Login
+                </Button>
+              </Link>
+            )}
 
-            <Button
-              variant={"default"}
-              className="hidden h-[48px] rounded-full px-[40px] text-[18px] font-bold text-black sm:flex"
-            >
-              <Link to={"/login"}>Login</Link>
-            </Button>
             {/* mobile navicon */}
             <div className="inline-flex h-[2.375rem] w-[2.375rem] items-center justify-center gap-x-2 text-sm font-semibold text-white lg:hidden">
               <Sheet>

@@ -10,7 +10,7 @@ import MyProfile from "@/pages/Dashboard/User/MyProfile";
 import { useRoutes } from "react-router-dom";
 
 const RoutesByRole = () => {
-  const role = "user";
+  const role = "admin";
 
   const userRoutes = [
     {

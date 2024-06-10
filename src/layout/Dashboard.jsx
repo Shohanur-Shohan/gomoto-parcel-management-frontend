@@ -41,7 +41,7 @@ import DeliveryMenNavLink from "@/pages/Dashboard/DeliveryMenNavLink";
 import { Outlet } from "react-router-dom";
 
 export function Dashboard() {
-  const role = "user";
+  const role = "admin";
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r border-input bg-muted/40 md:block">
