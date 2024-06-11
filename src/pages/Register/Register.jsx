@@ -109,11 +109,11 @@ const Register = () => {
           if (result?.insertedId) {
             setLoading(false);
             toast.success("Account created successfully!");
-            navigate("/");
+            navigate(`${location?.state?.form?.pathname || "/"}`);
           } else {
             setLoading(false);
             toast.success("Welcome Back!");
-            navigate("/");
+            navigate(`${location?.state?.form?.pathname || "/"}`);
           }
         }
       })

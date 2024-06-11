@@ -40,7 +40,7 @@ const Login = () => {
             setUser(currentUser);
             setLoading(false);
             toast.success("Welcome Back!");
-            navigate("/");
+            navigate(`${location?.state?.form?.pathname || "/"}`);
           }
         })
         .catch((error) => {
@@ -76,11 +76,11 @@ const Login = () => {
           if (result?.insertedId) {
             setLoading(false);
             toast.success("Welcome Back!");
-            navigate("/");
+            navigate(`${location?.state?.form?.pathname || "/"}`);
           } else {
             setLoading(false);
             toast.success("Welcome Back!");
-            navigate("/");
+            navigate(`${location?.state?.form?.pathname || "/"}`);
           }
         }
       })

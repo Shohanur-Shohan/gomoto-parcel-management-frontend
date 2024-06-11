@@ -8,6 +8,7 @@ import BookAParcel from "@/pages/Dashboard/User/BookParcel";
 import MyParcels from "@/pages/Dashboard/User/MyParcels";
 import MyProfile from "@/pages/Dashboard/User/MyProfile";
 import { useRoutes } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 
 const RoutesByRole = () => {
   const role = "admin";
@@ -15,45 +16,82 @@ const RoutesByRole = () => {
   const userRoutes = [
     {
       path: "my-profile",
-      element: <MyProfile />,
+      element: (
+        <PrivateRoute>
+          <MyProfile />
+        </PrivateRoute>
+      ),
     },
     {
       path: "book-parcel",
-      element: <BookAParcel />,
+
+      element: (
+        <PrivateRoute>
+          <BookAParcel />
+        </PrivateRoute>
+      ),
     },
     {
       path: "my-parcels",
-      element: <MyParcels />,
+      element: (
+        <PrivateRoute>
+          <MyParcels />
+        </PrivateRoute>
+      ),
     },
   ];
 
   const deliveryMenRoutes = [
     {
       path: "delivery-list",
-      element: <MyDeliveryList />,
+      element: (
+        <PrivateRoute>
+          <MyDeliveryList />
+        </PrivateRoute>
+      ),
     },
     {
       path: "my-reviews",
-      element: <MyReviews />,
+      element: (
+        <PrivateRoute>
+          <MyReviews />
+        </PrivateRoute>
+      ),
     },
   ];
 
   const adminRoutes = [
     {
       path: "statistics",
-      element: <AppStatistics />,
+      element: (
+        <PrivateRoute>
+          <AppStatistics />
+        </PrivateRoute>
+      ),
     },
     {
       path: "users",
-      element: <AllUsers />,
+      element: (
+        <PrivateRoute>
+          <AllUsers />
+        </PrivateRoute>
+      ),
     },
     {
       path: "delivery-mens",
-      element: <AllDeliveryMens />,
+      element: (
+        <PrivateRoute>
+          <AllDeliveryMens />
+        </PrivateRoute>
+      ),
     },
     {
       path: "all-parcels",
-      element: <AllParcels />,
+      element: (
+        <PrivateRoute>
+          <AllParcels />
+        </PrivateRoute>
+      ),
     },
   ];
 

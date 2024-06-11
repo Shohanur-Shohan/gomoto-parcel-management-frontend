@@ -6,6 +6,7 @@ import Register from "@/pages/Register/Register";
 import { createBrowserRouter } from "react-router-dom";
 import RoutesByRole from "./RoutesByRole";
 import { Dashboard } from "@/layout/Dashboard";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,9 +29,13 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard/*",
+    path: "dashboard/*",
     errorElement: <Error />,
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "*",
