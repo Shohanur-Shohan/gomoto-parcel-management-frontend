@@ -61,7 +61,7 @@ const Reviews = () => {
                     <Avatar className="h-[50px] w-[50px]">
                       <AvatarImage src="https://github.com/shadcn.png" />
                       <AvatarFallback>
-                        <img src="/assets/avatar.svg" />
+                        <img src="/assets/avatar.svg/assets/avatar.svg" />
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid gap-1">
@@ -101,7 +101,7 @@ const Reviews = () => {
                     <Avatar className="h-[50px] w-[50px]">
                       <AvatarImage src="https://github.com/shadcn.png" />
                       <AvatarFallback>
-                        <img src="/assets/avatar.svg" />
+                        <img src="/assets/user.png" />
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid gap-1">
@@ -141,7 +141,7 @@ const Reviews = () => {
                     <Avatar className="h-[50px] w-[50px]">
                       <AvatarImage src="https://github.com/shadcn.png" />
                       <AvatarFallback>
-                        <img src="/assets/avatar.svg" />
+                        <img src="/assets/user.png" />
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid gap-1">
@@ -181,7 +181,7 @@ const Reviews = () => {
                     <Avatar className="h-[50px] w-[50px]">
                       <AvatarImage src="https://github.com/shadcn.png" />
                       <AvatarFallback>
-                        <img src="/assets/avatar.svg" />
+                        <img src="/assets/user.png" />
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid gap-1">
@@ -221,7 +221,7 @@ const Reviews = () => {
                     <Avatar className="h-[50px] w-[50px]">
                       <AvatarImage src="https://github.com/shadcn.png" />
                       <AvatarFallback>
-                        <img src="/assets/avatar.svg" />
+                        <img src="/assets/user.png" />
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid gap-1">

@@ -9,9 +9,19 @@ import MyParcels from "@/pages/Dashboard/User/MyParcels";
 import MyProfile from "@/pages/Dashboard/User/MyProfile";
 import { useRoutes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import useUserType from "@/hooks/useUserType";
+import Loader from "@/components/Loader";
 
 const RoutesByRole = () => {
-  const role = "admin";
+  const [userType, isLoading] = useUserType();
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  const user_type = userType || {};
+  const role = user_type?.user_type; //user or delivery_men or admin
+  // console.log(role);
 
   const userRoutes = [
     {

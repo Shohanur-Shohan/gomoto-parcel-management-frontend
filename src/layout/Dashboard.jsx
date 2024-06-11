@@ -1,25 +1,6 @@
-import {
-  Bell,
-  CircleUser,
-  Home,
-  LineChart,
-  Menu,
-  Package,
-  Package2,
-  Search,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
+import { Bell, Menu, Search } from "lucide-react";
 import { Link } from "react-router-dom";
-// import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,9 +20,46 @@ import UserSideNav from "@/pages/Dashboard/UserSideNav";
 import AdminNavLinks from "@/pages/Dashboard/AdminNavLinks";
 import DeliveryMenNavLink from "@/pages/Dashboard/DeliveryMenNavLink";
 import { Outlet } from "react-router-dom";
+import useUserType from "@/hooks/useUserType";
+import Loader from "@/components/Loader";
+import useAuth from "@/hooks/useAuth";
+import { Skeleton } from "@/components/ui/skeleton";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export function Dashboard() {
-  const role = "admin";
+  const [userType, isLoading] = useUserType();
+  const [path, setPath] = useState("");
+
+  const [Auth] = useAuth();
+  const { loading, logOut, setLoading, user } = Auth;
+
+  const user_type = userType || {};
+  const role = user_type?.user_type; //user or delivery_men or admin
+  // console.log(role);
+
+  useEffect(() => {
+    if (role) {
+      if (role === "admin") {
+        setPath("statistics");
+      } else if (role === "delivery_men") {
+        setPath("delivery-list");
+      } else {
+        setPath("my-profile");
+      }
+    }
+  }, [role]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  const handleLogout = () => {
+    logOut();
+    toast.success("Logout Success");
+    setLoading(false);
+  };
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r border-input bg-muted/40 md:block">
@@ -83,7 +101,7 @@ export function Dashboard() {
                 className="shrink-0 md:hidden"
               >
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle navigation menu</span>
+                {/* <span className="sr-only">Toggle navigation menu</span> */}
               </Button>
             </SheetTrigger>
 
@@ -124,36 +142,40 @@ export function Dashboard() {
           <ModeToggle />
           {/* //theme toggler */}
           {/* avatar */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar className="h-[35px] w-[35px] sm:h-[40px] sm:w-[40px]">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>
-                  <img src="/assets/avatar.svg" />
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-[170px]">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Shohanur Shohan</DropdownMenuItem>
-              <DropdownMenuItem>Home</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {loading && (
+            <Skeleton className="h-[35px] w-[35px] rounded-full sm:h-[40px] sm:w-[40px]" />
+          )}
+          {user && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="h-[35px] w-[35px] sm:h-[40px] sm:w-[40px]">
+                  <AvatarImage src={user?.photoURL} />
+                  <AvatarFallback>
+                    <img src="/assets/user.png" />
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>{user?.displayName}</DropdownMenuItem>
+                <Link to={`/dashboard/${path}`}>
+                  <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                </Link>
+
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
 
           {/* avatar */}
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-          {/* <div className="flex items-center">
-            <h1 className="text-lg font-semibold md:text-2xl">Inventory</h1>
-          </div> */}
-          <div
-            // x-chunk="dashboard-02-chunk-1"
-            className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-input shadow-sm"
-          >
+          <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-input shadow-sm">
             <Outlet />
           </div>
         </main>

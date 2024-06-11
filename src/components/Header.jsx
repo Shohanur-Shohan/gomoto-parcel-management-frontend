@@ -11,7 +11,6 @@ import { fadeAnimation } from "@/utils/variants";
 import { NavLink } from "react-router-dom";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -24,15 +23,24 @@ import { useMotionValueEvent } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import useAuth from "@/hooks/useAuth";
 import toast from "react-hot-toast";
+import useUserType from "@/hooks/useUserType";
+import { useEffect } from "react";
 
 const Header = () => {
   const location = useLocation();
-  const [isHidden, setIsHidden] = useState(false);
   const { scrollY } = useScroll();
+  const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [postion, setPosition] = useState(true);
+
   const [Auth] = useAuth();
   const { loading, logOut, setLoading, user } = Auth;
+  const [path, setPath] = useState("");
+  const [userType, isLoading] = useUserType();
+
+  //user_type
+  const user_type = userType || {};
+  const role = user_type?.user_type; //user or delivery_men or admin
 
   useMotionValueEvent(scrollY, "change", (y) => {
     if (y > lastScrollY) {
@@ -49,6 +57,20 @@ const Header = () => {
     }
     setLastScrollY(y);
   });
+
+  useEffect(() => {
+    if (role) {
+      if (role === "admin") {
+        setPath("statistics");
+      } else if (role === "delivery_men") {
+        setPath("delivery-list");
+      } else {
+        setPath("my-profile");
+      }
+    }
+  }, [role]);
+
+  // console.log(path);
 
   const handleLogout = () => {
     logOut();
@@ -143,15 +165,15 @@ const Header = () => {
                   <Avatar className="h-[35px] w-[35px] sm:h-[40px] sm:w-[40px]">
                     <AvatarImage src={user?.photoURL} />
                     <AvatarFallback>
-                      <img src="/assets/avatar.svg" />
+                      <img src="/assets/user.png" />
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-[150px]">
+                <DropdownMenuContent align="end">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>{user?.displayName}</DropdownMenuItem>
-                  <Link to={"/dashboard"}>
+                  <Link to={`/dashboard/${path}`}>
                     <DropdownMenuItem>Dashboard</DropdownMenuItem>
                   </Link>
 
@@ -209,12 +231,21 @@ const Header = () => {
                       Contact
                     </Link>
                   </ul>
-                  <Button
-                    variant={"default"}
-                    className="mx-auto mt-[30px] flex h-[48px] rounded-full px-[40px] text-[18px] font-bold text-black sm:hidden"
-                  >
-                    <Link to={"/login"}>Dashboard</Link>
-                  </Button>
+                  {!user ? (
+                    <Button
+                      variant={"default"}
+                      className="mx-auto mt-[30px] flex h-[48px] rounded-full px-[40px] text-[18px] font-bold text-black sm:hidden"
+                    >
+                      <Link to={"/login"}>Login</Link>
+                    </Button>
+                  ) : (
+                    <Button
+                      variant={"default"}
+                      className="mx-auto mt-[30px] flex h-[48px] rounded-full px-[40px] text-[18px] font-bold text-black sm:hidden"
+                    >
+                      <Link to={`/dashboard/${path}`}>Dashboard</Link>
+                    </Button>
+                  )}
                 </SheetContent>
               </Sheet>
             </div>
