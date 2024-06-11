@@ -5,10 +5,17 @@ import { Input } from "@/components/ui/input";
 import useAuth from "@/hooks/useAuth";
 import Loader from "@/components/Loader";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { hostImage } from "@/utils/api";
+import { useState } from "react";
+import { updateProfile } from "firebase/auth";
+import { auth } from "@/config/Firebase.config";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function MyProfile() {
   const [Auth] = useAuth();
   const { user, loading } = Auth;
+  const [imageUploading, setImageUploading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -18,8 +25,22 @@ export default function MyProfile() {
   if (loading) {
     return <Loader />;
   }
-  const handleProfileUpdate = (data) => {
-    console.log(data);
+  const handleProfileUpdate = async (data) => {
+    setImageUploading(true);
+    const image = data?.image[0];
+    const result = await hostImage(image);
+    const photoURL = result?.data?.url;
+    updateProfile(auth.currentUser, {
+      photoURL: photoURL,
+    })
+      .then(() => {
+        toast.success("Profile Updated");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Profile Updating Failed!");
+      });
+    setImageUploading(false);
   };
   return (
     <section className="w-full py-[40px]">
@@ -29,20 +50,21 @@ export default function MyProfile() {
       >
         <header className="space-y-2">
           <div className="flex items-center space-x-3">
-            <img
-              src="https://github.com/shadcn.png"
-              alt="Avatar"
-              width="96"
-              height="96"
-              className="rounded-md"
-            />
+            <Avatar className="h-[80px] w-[80px] rounded-md sm:h-[96px] sm:w-[96px]">
+              <AvatarImage src={user?.photoURL} className="rounded-md" />
+              <AvatarFallback className="rounded-md">
+                <img src="/assets/user.png" />
+              </AvatarFallback>
+            </Avatar>
             <div className="space-y-1">
               <h1 className="text-2xl font-bold">{user?.displayName}</h1>
-              <div className="grid w-full max-w-fit items-center gap-1.5">
+              <div className="grid w-full max-w-fit cursor-pointer items-center gap-1.5">
                 <Input
-                  id="picture"
+                  id="image"
+                  name="image"
                   type="file"
-                  className="max-w-fit bg-[#f7b814]"
+                  {...register("image")}
+                  className="max-w-fit cursor-pointer bg-[#f7b814]"
                   placeholder="Upload photo"
                 />
               </div>
@@ -90,7 +112,9 @@ export default function MyProfile() {
           </Card>
         </div>
         <div className="pt-6">
-          <Button className="px-[40px] py-6">Update</Button>
+          <Button className="px-[40px] py-6" disabled={imageUploading}>
+            {imageUploading ? "Updating" : "Update"}
+          </Button>
         </div>
       </form>
     </section>

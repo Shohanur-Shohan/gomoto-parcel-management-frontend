@@ -15,3 +15,18 @@ export const UserType = async (email) => {
   const result = res?.data;
   return result;
 };
+
+//host image
+export const hostImage = async (image) => {
+  const res = await axios.post(
+    `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`,
+    { image },
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  const result = res?.data;
+  return result;
+};
