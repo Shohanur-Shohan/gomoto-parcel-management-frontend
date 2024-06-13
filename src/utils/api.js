@@ -30,3 +30,13 @@ export const hostImage = async (image) => {
   const result = res?.data;
   return result;
 };
+
+//send userinfo To Db
+export const parcelBooking = async (bookingInfo) => {
+  const res = await axios.post(
+    `${import.meta.env.VITE_BASE_URL}/parcel_booking`,
+    bookingInfo
+  );
+  const result = res?.data;
+  return result;
+};
