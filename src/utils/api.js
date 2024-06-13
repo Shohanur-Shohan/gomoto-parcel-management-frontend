@@ -40,3 +40,12 @@ export const parcelBooking = async (bookingInfo) => {
   const result = res?.data;
   return result;
 };
+
+//user booked parcels
+export const usersBookedParcels = async (email) => {
+  const res = await axios.get(
+    `${import.meta.env.VITE_BASE_URL}/user_booked_parcels/${email}`
+  );
+  const result = res?.data;
+  return result;
+};

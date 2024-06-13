@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import useAuth from "@/hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { format, addDays } from "date-fns";
+import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import {
@@ -72,7 +72,9 @@ const BookAParcel = () => {
       receiver_name: data?.receiver_name,
       receriver_number: data?.receriver_number,
       delivery_address: data?.delivery_address,
+      booking_date: format(new Date(), "PPP"),
       delivery_date: deliveryDate,
+      delivery_men_id: "Not issued",
       delivery_address_latitude: latitude,
       delivery_address_longitude: longitude,
       parcel_price: deliveryPrice,
