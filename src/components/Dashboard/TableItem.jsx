@@ -7,6 +7,18 @@ import PropTypes from "prop-types";
 import toast from "react-hot-toast";
 
 import { Link } from "react-router-dom";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 
 const TableItem = ({ data, refetch }) => {
   const {
@@ -20,7 +32,7 @@ const TableItem = ({ data, refetch }) => {
 
   const handleCancel = (id) => {
     console.log(id);
-    toast.error("Booking Cancelled");
+    toast.success("Booking Cancelled");
   };
 
   const handleReview = (id) => {
@@ -68,9 +80,36 @@ const TableItem = ({ data, refetch }) => {
           {/* dialog */}
         </TableCell>
         <TableCell className="text-right">
-          <Button onClick={() => handleCancel(_id)} variant="destructive">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="destructive">Cancel</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle className="text-center text-destructive lg:text-2xl">
+                  Are you sure?
+                </DialogTitle>
+                <DialogDescription className="text-center">
+                  This will be parmanently deleted.
+                </DialogDescription>
+              </DialogHeader>
+
+              <DialogFooter className="justify-center sm:justify-center">
+                <DialogClose asChild>
+                  <Button
+                    onClick={() => handleCancel(_id)}
+                    variant="destructive"
+                  >
+                    Confirm
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          {/* <Button onClick={() => handleCancel(_id)} variant="destructive">
             Cancel
-          </Button>
+          </Button> */}
         </TableCell>
         <TableCell className="text-right">
           <Button onClick={() => handleReview(_id)} variant="outline">
