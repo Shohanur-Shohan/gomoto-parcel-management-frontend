@@ -61,9 +61,10 @@ export const findOneBookedParcel = async (id) => {
 
 //update user booked parcel data
 export const updateBookedParcel = async (updatedInfo) => {
-  const id = updatedInfo[0]?.id;
+  const userEmail = updatedInfo[0]?.parcelInfo?.userEmail;
+  const id = updatedInfo[0]?.parcelInfo?.id;
   const res = await axios.patch(
-    `${import.meta.env.VITE_BASE_URL}/update_booked_parcel/${id}`,
+    `${import.meta.env.VITE_BASE_URL}/update_booked_parcel/${userEmail}/${id}`,
     updatedInfo[1]?.updatedData
   );
   const result = res?.data;
@@ -71,3 +72,11 @@ export const updateBookedParcel = async (updatedInfo) => {
 };
 
 //delete user booked parcel data
+export const deleteBookedParcel = async (deleteInfo) => {
+  const { id, email } = deleteInfo;
+  const res = await axios.delete(
+    `${import.meta.env.VITE_BASE_URL}/delete_booked_parcel/${email}/${id}`
+  );
+  const result = res?.data;
+  return result;
+};

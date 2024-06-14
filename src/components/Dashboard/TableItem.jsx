@@ -17,8 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+import { deleteBookedParcel } from "@/utils/api";
 
 const TableItem = ({ data, refetch }) => {
   const {
@@ -30,9 +29,18 @@ const TableItem = ({ data, refetch }) => {
     delivery_men_id,
   } = data;
 
-  const handleCancel = (id) => {
-    console.log(id);
-    toast.success("Booking Cancelled");
+  const handleCancel = async (id) => {
+    const deleteInfo = {
+      id: id,
+      email: data?.booked_user_email,
+    };
+    const result = await deleteBookedParcel(deleteInfo);
+    if (result.deletedCount === 1) {
+      refetch();
+      toast.success("Booking Cancelled");
+    } else {
+      toast.error("Booking Cancelation Failed");
+    }
   };
 
   const handleReview = (id) => {

@@ -114,7 +114,7 @@ const UpdateBookedParcel = () => {
       const deliveryDate = format(date, "PPP");
 
       const updatedInfo = [
-        { id: _id },
+        { parcelInfo: { userEmail: userEmail, id: _id } },
         {
           updatedData: {
             booked_user_number: data?.booked_user_number,
