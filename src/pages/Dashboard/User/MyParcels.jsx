@@ -33,13 +33,13 @@ const MyParcels = () => {
   }
 
   return (
-    <div className="w-full px-2 py-[40px] sm:px-3 md:px-4">
+    <div className="px-2 py-[40px] sm:px-3 md:px-4">
       <div className="mb-6">
         <h2 className="text-2xl font-bold tracking-tight">
           Your Booked Parcels
         </h2>
       </div>
-      <Table>
+      <Table className="overflow-x-auto">
         <TableHeader>
           <TableRow className="border-input">
             <TableHead className="w-[300px] font-medium">Parcel Type</TableHead>

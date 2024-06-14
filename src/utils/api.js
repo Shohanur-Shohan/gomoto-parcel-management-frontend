@@ -49,3 +49,22 @@ export const usersBookedParcels = async (email) => {
   const result = res?.data;
   return result;
 };
+
+//update user booked parcel data
+export const updateBookedParcel = async (updatedInfo) => {
+  const res = await axios.post(
+    `${import.meta.env.VITE_BASE_URL}/update_booked_parcel`,
+    updatedInfo
+  );
+  const result = res?.data;
+  return result;
+};
+
+// find single booked data by id
+export const findOneBookedParcel = async (id) => {
+  const res = await axios.get(
+    `${import.meta.env.VITE_BASE_URL}/update-booked-parcel/${id}`
+  );
+  const result = res?.data;
+  return result;
+};

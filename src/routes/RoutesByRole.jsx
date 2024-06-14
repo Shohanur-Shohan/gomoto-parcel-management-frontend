@@ -11,6 +11,7 @@ import { useRoutes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import useUserType from "@/hooks/useUserType";
 import Loader from "@/components/Loader";
+import UpdateBookedParcel from "@/pages/Dashboard/User/UpdateBookedParcel";
 
 const RoutesByRole = () => {
   const [userType, isLoading] = useUserType();
@@ -46,6 +47,14 @@ const RoutesByRole = () => {
       element: (
         <PrivateRoute>
           <MyParcels />
+        </PrivateRoute>
+      ),
+    },
+    {
+      path: "update-booked-parcel/*",
+      element: (
+        <PrivateRoute>
+          <UpdateBookedParcel />
         </PrivateRoute>
       ),
     },

@@ -72,7 +72,7 @@ export default function MyProfile() {
           </div>
         </header>
         <div className="space-y-8">
-          <Card>
+          <Card className="border-input py-4">
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>

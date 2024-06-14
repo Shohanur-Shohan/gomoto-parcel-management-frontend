@@ -6,6 +6,8 @@ import { addDays, format } from "date-fns";
 import PropTypes from "prop-types";
 import toast from "react-hot-toast";
 
+import { Link } from "react-router-dom";
+
 const TableItem = ({ data, refetch }) => {
   const {
     _id,
@@ -15,11 +17,6 @@ const TableItem = ({ data, refetch }) => {
     status,
     delivery_men_id,
   } = data;
-
-  const handleUpdate = (id) => {
-    console.log(id);
-    toast.success("Update Suceess");
-  };
 
   const handleCancel = (id) => {
     console.log(id);
@@ -53,9 +50,22 @@ const TableItem = ({ data, refetch }) => {
           <Badge>{status}</Badge>
         </TableCell>
         <TableCell className="text-right">
-          <Button onClick={() => handleUpdate(_id)} variant="secondary">
-            Update
+          {/* dialog */}
+
+          <Button
+            asChild
+            type="button"
+            variant="secondary"
+            disabled={status === "pending" ? false : true}
+          >
+            <Link
+              to={`/dashboard/update-booked-parcel/${_id}`}
+              state={{ id: _id }}
+            >
+              Update
+            </Link>
           </Button>
+          {/* dialog */}
         </TableCell>
         <TableCell className="text-right">
           <Button onClick={() => handleCancel(_id)} variant="destructive">
