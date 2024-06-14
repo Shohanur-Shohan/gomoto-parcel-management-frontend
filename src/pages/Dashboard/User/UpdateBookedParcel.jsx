@@ -18,7 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import Loader from "@/components/Loader";
-import { findOneBookedParcel } from "@/utils/api";
+import { findOneBookedParcel, updateBookedParcel } from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -86,6 +86,23 @@ const UpdateBookedParcel = () => {
     status,
   } = parcelData;
 
+  //   console.log(
+  //     _id,
+  //     booked_user_name,
+  //     booked_user_email,
+  //     booked_user_number,
+  //     parcel_weight,
+  //     parcel_type,
+  //     receiver_name,
+  //     receriver_number,
+  //     delivery_address,
+  //     delivery_date,
+  //     delivery_address_latitude,
+  //     delivery_address_longitude,
+  //     parcel_price,
+  //     status
+  //   );
+
   const handleParcelWeight = (e) => {
     // e.preventDefault();
     let parcelWeight = e.target.value;
@@ -106,48 +123,43 @@ const UpdateBookedParcel = () => {
     }
   }, [parcelData?.parcel_price, parcelData]);
 
-  //   const handleBooking = async (data) => {
-  //     setIsDisabled(true);
-  //     const deliveryDate = format(date, "PPP");
-  //     const bookingInfo = {
-  //       booked_user_name: user?.displayName,
-  //       booked_user_email: user?.email,
-  //       booked_user_number: data?.booked_user_number,
-  //       parcel_weight: ParcelWeight,
-  //       parcel_type: data?.parcel_type,
-  //       receiver_name: data?.receiver_name,
-  //       receriver_number: data?.receriver_number,
-  //       delivery_address: data?.delivery_address,
-  //       booking_date: format(new Date(), "PPP"),
-  //       delivery_date: deliveryDate,
-  //       delivery_men_id: "Not issued",
-  //       delivery_address_latitude: latitude,
-  //       delivery_address_longitude: longitude,
-  //       parcel_price: deliveryPrice,
-  //       status: "pending",
-  //     };
+  const updateBooking = async (data) => {
+    setIsDisabled(true);
+    const deliveryDate = format(date, "PPP");
 
-  //     const result = await parcelBooking(bookingInfo);
-  //     if (result?.insertedId) {
-  //       toast.success("Booking Done");
-  //       reset();
-  //     }
+    const updatedInfo = [
+      { userEmail: userEmail, id: _id },
+      {
+        booked_user_number: data?.booked_user_number,
+        parcel_weight: ParcelWeight,
+        parcel_type: data?.parcel_type,
+        receiver_name: data?.receiver_name,
+        receriver_number: data?.receriver_number,
+        delivery_address: data?.delivery_address,
+        delivery_date: deliveryDate,
+        delivery_address_latitude: latitude,
+        delivery_address_longitude: longitude,
+        parcel_price: deliveryPrice,
+        status: "pending",
+      },
+    ];
 
-  //     setIsDisabled(false);
-  //   };
-  const updateBooking = (data) => {
-    console.log(data);
+    const result = await updateBookedParcel(updatedInfo);
+    if (result?.insertedId) {
+      toast.success("Booking Updated");
+      reset();
+    }
+
+    setIsDisabled(false);
   };
-
-  if (isLoading || !userEmail) {
-    return <Loader />;
-  }
 
   if (error) {
     return <div>No parcels booked</div>;
   }
-
-  console.log(parcelData, "parcel");
+  //   console.log(parcelData);
+  if (isLoading || Object.keys(parcelData).length === 0) {
+    return <Loader />;
+  }
 
   return (
     <section className="w-full px-2 py-[40px] sm:px-3 md:px-4">
@@ -187,7 +199,7 @@ const UpdateBookedParcel = () => {
               id="booked_user_number"
               name="booked_user_number"
               type="text"
-              defaultValue={booked_user_number}
+              defaultValue={booked_user_number || 0}
               {...register("booked_user_number")}
               required
             />
