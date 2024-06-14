@@ -47,7 +47,7 @@ const TableItem = ({ data, refetch }) => {
         <TableCell>{formattedApproximateDate}</TableCell>
         <TableCell>{delivery_men_id}</TableCell>
         <TableCell>
-          <Badge>{status}</Badge>
+          <Badge className="capitalize">{status}</Badge>
         </TableCell>
         <TableCell className="text-right">
           {/* dialog */}

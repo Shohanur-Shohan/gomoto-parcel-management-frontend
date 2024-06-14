@@ -77,31 +77,9 @@ const UpdateBookedParcel = () => {
     receiver_name,
     receriver_number,
     delivery_address,
-    //   booking_date,
     delivery_date,
-    //   delivery_men_id,
-    delivery_address_latitude,
-    delivery_address_longitude,
-    parcel_price,
     status,
   } = parcelData;
-
-  //   console.log(
-  //     _id,
-  //     booked_user_name,
-  //     booked_user_email,
-  //     booked_user_number,
-  //     parcel_weight,
-  //     parcel_type,
-  //     receiver_name,
-  //     receriver_number,
-  //     delivery_address,
-  //     delivery_date,
-  //     delivery_address_latitude,
-  //     delivery_address_longitude,
-  //     parcel_price,
-  //     status
-  //   );
 
   const handleParcelWeight = (e) => {
     // e.preventDefault();
@@ -119,38 +97,48 @@ const UpdateBookedParcel = () => {
 
   useEffect(() => {
     if (parcelData) {
+      setParcelWeight(parcelData?.parcel_weight);
       setDeliveryPrice(parcelData?.parcel_price);
+      setLatitude(parcelData?.delivery_address_latitude);
+      setLongitude(parcelData?.delivery_address_longitude);
     }
-  }, [parcelData?.parcel_price, parcelData]);
+  }, [parcelData]);
 
   const updateBooking = async (data) => {
     setIsDisabled(true);
-    const deliveryDate = format(date, "PPP");
 
-    const updatedInfo = [
-      { userEmail: userEmail, id: _id },
-      {
-        booked_user_number: data?.booked_user_number,
-        parcel_weight: ParcelWeight,
-        parcel_type: data?.parcel_type,
-        receiver_name: data?.receiver_name,
-        receriver_number: data?.receriver_number,
-        delivery_address: data?.delivery_address,
-        delivery_date: deliveryDate,
-        delivery_address_latitude: latitude,
-        delivery_address_longitude: longitude,
-        parcel_price: deliveryPrice,
-        status: "pending",
-      },
-    ];
+    if (!date) {
+      toast.error("Booking date is empty!");
+      setIsDisabled(false);
+    } else {
+      const deliveryDate = format(date, "PPP");
 
-    const result = await updateBookedParcel(updatedInfo);
-    if (result?.insertedId) {
-      toast.success("Booking Updated");
-      reset();
+      const updatedInfo = [
+        { parcelInfo: { userEmail: userEmail, id: _id } },
+        {
+          updatedData: {
+            booked_user_number: data?.booked_user_number,
+            parcel_weight: ParcelWeight,
+            parcel_type: data?.parcel_type,
+            receiver_name: data?.receiver_name,
+            receriver_number: data?.receriver_number,
+            delivery_address: data?.delivery_address,
+            delivery_date: deliveryDate,
+            delivery_address_latitude: latitude,
+            delivery_address_longitude: longitude,
+            parcel_price: deliveryPrice,
+          },
+        },
+      ];
+
+      const result = await updateBookedParcel(updatedInfo);
+      if (result?.modifiedCount > 0) {
+        toast.success("Booking Updated");
+        reset();
+        setIsDisabled(false);
+        navigate("/dashboard/my-parcels");
+      }
     }
-
-    setIsDisabled(false);
   };
 
   if (error) {
@@ -316,7 +304,7 @@ const UpdateBookedParcel = () => {
               id="delivery_address_latitude"
               name="delivery_address_latitude"
               type="number"
-              defaultValue={delivery_address_latitude}
+              defaultValue={latitude}
               onChange={(e) => setLatitude(e.target.value)}
               placeholder="Delivery address latitude"
               required
@@ -330,7 +318,7 @@ const UpdateBookedParcel = () => {
               id="delivery_address_longitude"
               name="delivery_address_longitude"
               type="number"
-              defaultValue={delivery_address_longitude}
+              defaultValue={longitude}
               onChange={(e) => setLongitude(e.target.value)}
               placeholder="Delivery address longitude"
               required
