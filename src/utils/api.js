@@ -71,11 +71,11 @@ export const updateBookedParcel = async (updatedInfo) => {
   return result;
 };
 
-//delete user booked parcel data
-export const deleteBookedParcel = async (deleteInfo) => {
+//cancel user booked parcel data
+export const cancelBookedParcel = async (deleteInfo) => {
   const { id, email } = deleteInfo;
-  const res = await axios.delete(
-    `${import.meta.env.VITE_BASE_URL}/delete_booked_parcel/${email}/${id}`
+  const res = await axios.patch(
+    `${import.meta.env.VITE_BASE_URL}/cancel_booked_parcel/${email}/${id}`
   );
   const result = res?.data;
   return result;

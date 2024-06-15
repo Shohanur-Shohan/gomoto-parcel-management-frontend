@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { deleteBookedParcel } from "@/utils/api";
+import { cancelBookedParcel } from "@/utils/api";
 
 const TableItem = ({ data, refetch }) => {
   const {
@@ -34,13 +34,16 @@ const TableItem = ({ data, refetch }) => {
       id: id,
       email: data?.booked_user_email,
     };
-    const result = await deleteBookedParcel(deleteInfo);
-    if (result.deletedCount === 1) {
-      refetch();
-      toast.success("Booking Cancelled");
-    } else {
-      toast.error("Booking Cancelation Failed");
-    }
+    const result = await cancelBookedParcel(deleteInfo);
+    console.log(result);
+    toast.success("Booking Cancelled");
+    refetch();
+    // if (result.deletedCount === 1) {
+    //   refetch();
+    //   toast.success("Booking Cancelled");
+    // } else {
+    //   toast.error("Booking Cancelation Failed");
+    // }
   };
 
   const handleReview = (id) => {
@@ -76,29 +79,40 @@ const TableItem = ({ data, refetch }) => {
             asChild
             type="button"
             variant="secondary"
+            className="cursor-pointer"
             disabled={status === "pending" ? false : true}
           >
-            <Link
-              to={`/dashboard/update-booked-parcel/${_id}`}
-              state={{ id: _id }}
-            >
-              Update
-            </Link>
+            {status === "pending" ? (
+              <Link
+                to={`/dashboard/update-booked-parcel/${_id}`}
+                state={{ id: _id }}
+              >
+                Update
+              </Link>
+            ) : (
+              <div className="opacity-40">Update</div>
+            )}
           </Button>
           {/* dialog */}
         </TableCell>
         <TableCell className="text-right">
           <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="destructive">Cancel</Button>
-            </DialogTrigger>
+            {status === "pending" ? (
+              <DialogTrigger asChild>
+                <Button variant="destructive">Cancel</Button>
+              </DialogTrigger>
+            ) : (
+              <Button variant="destructive" className="opacity-40">
+                Cancel
+              </Button>
+            )}
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
                 <DialogTitle className="text-center text-destructive lg:text-2xl">
                   Are you sure?
                 </DialogTitle>
                 <DialogDescription className="text-center">
-                  This will be parmanently deleted.
+                  This will be parmanently canceled.
                 </DialogDescription>
               </DialogHeader>
 
