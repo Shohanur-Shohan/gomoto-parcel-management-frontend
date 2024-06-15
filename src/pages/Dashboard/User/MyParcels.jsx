@@ -18,17 +18,23 @@ import {
 import useAuth from "@/hooks/useAuth";
 import { usersBookedParcels } from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const MyParcels = () => {
   const [Auth] = useAuth();
   const { user } = Auth;
+  const [Status, setStatus] = useState("all");
 
   const userEmail = user?.email;
+  const filterInfo = {
+    userEmail: userEmail,
+    filterStatus: Status,
+  };
 
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["userBookedParcels", userEmail],
-    queryFn: async () => await usersBookedParcels(userEmail),
-    enabled: !!userEmail,
+    queryKey: ["userBookedParcels", userEmail, filterInfo],
+    queryFn: async () => await usersBookedParcels(filterInfo),
+    enabled: !!userEmail && !!filterInfo,
   });
 
   if (isLoading || !userEmail) {
@@ -46,17 +52,23 @@ const MyParcels = () => {
           Your Booked Parcels
         </h2>
       </div>
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Theme" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="light">Light</SelectItem>
-          <SelectItem value="dark">Dark</SelectItem>
-          <SelectItem value="system">System</SelectItem>
-        </SelectContent>
-      </Select>
-      <div className="relative max-w-[270px] overflow-x-scroll sm:max-w-[600px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[1080px] 2xl:max-w-full">
+      <div className="mb-6">
+        <Select onValueChange={(e) => setStatus(e)}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter" />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="pending">Pending</SelectItem>
+            <SelectItem value="delivered">Delivered</SelectItem>
+            <SelectItem value="on-the-way">On the way</SelectItem>
+            <SelectItem value="returned">Returned</SelectItem>
+            <SelectItem value="cancelled">Cancelled</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="relative max-w-[270px] overflow-x-scroll sm:max-w-[600px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[1080px] 2xl:max-w-full 2xl:overflow-hidden">
         <Table className="w-full divide-y divide-gray-200">
           <TableHeader>
             <TableRow className="border-input">
@@ -85,9 +97,12 @@ const MyParcels = () => {
             </TableRow>
           </TableHeader>
           <TableBody className="overflow-x-auto">
-            {!data ? (
+            {!data || data?.length === 0 ? (
               <tr>
-                <td colSpan="10" className="py-4 text-center">
+                <td
+                  colSpan="10"
+                  className="py-4 text-center text-xl font-medium text-red-500"
+                >
                   No parcels found
                 </td>
               </tr>
