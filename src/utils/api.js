@@ -31,7 +31,7 @@ export const hostImage = async (image) => {
   return result;
 };
 
-//send userinfo To Db
+//send parcelinfo To Db
 export const parcelBooking = async (bookingInfo) => {
   const res = await axios.post(
     `${import.meta.env.VITE_BASE_URL}/parcel_booking`,
