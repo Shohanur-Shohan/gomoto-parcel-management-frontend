@@ -92,7 +92,7 @@ export const allDeliveryMen = async () => {
   return result;
 };
 
-//all deliveryMen
+//all parcels
 export const allParcels = async () => {
   const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/allParcels`);
 
@@ -110,4 +110,23 @@ export const adminUpdateBookedParcel = async (updatedInfo) => {
   );
   const result = res?.data;
   return result;
+};
+
+//search by date
+export const searchByDate = async (filter) => {
+  // console.log(filter?.searchData, filter);
+  const { searchData } = filter;
+  if (filter?.searchData) {
+    const res = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/searchByDate`,
+      searchData
+    );
+    const result = res?.data;
+    return result;
+  } else {
+    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/allParcels`);
+
+    const result = res?.data;
+    return result;
+  }
 };

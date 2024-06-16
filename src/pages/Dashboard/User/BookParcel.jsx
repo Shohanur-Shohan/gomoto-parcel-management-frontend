@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import useAuth from "@/hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { format } from "date-fns";
+import { format, formatISO } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import {
@@ -63,6 +63,7 @@ const BookAParcel = () => {
   const handleBooking = async (data) => {
     setIsDisabled(true);
     const deliveryDate = format(date, "PPP");
+    // const deliveryDate = formatISO(date);
     const bookingInfo = {
       booked_user_name: user?.displayName,
       booked_user_email: user?.email,
