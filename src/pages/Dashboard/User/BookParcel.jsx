@@ -74,6 +74,7 @@ const BookAParcel = () => {
       delivery_address: data?.delivery_address,
       booking_date: format(new Date(), "PPP"),
       delivery_date: deliveryDate,
+      apporoximate_delivery_date: "Not issued",
       delivery_men_id: "Not issued",
       delivery_address_latitude: latitude,
       delivery_address_longitude: longitude,

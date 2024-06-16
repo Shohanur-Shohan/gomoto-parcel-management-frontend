@@ -81,3 +81,33 @@ export const cancelBookedParcel = async (deleteInfo) => {
   const result = res?.data;
   return result;
 };
+
+//all deliveryMen
+export const allDeliveryMen = async () => {
+  const res = await axios.get(
+    `${import.meta.env.VITE_BASE_URL}/allDeliveryMen`
+  );
+
+  const result = res?.data;
+  return result;
+};
+
+//all deliveryMen
+export const allParcels = async () => {
+  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/allParcels`);
+
+  const result = res?.data;
+  return result;
+};
+
+//update user booked parcel data by admin
+export const adminUpdateBookedParcel = async (updatedInfo) => {
+  const userEmail = updatedInfo?.adminEmail;
+  const id = updatedInfo?.parcel_id;
+  const res = await axios.patch(
+    `${import.meta.env.VITE_BASE_URL}/update_booked_parcel_byadmin/${userEmail}/${id}`,
+    updatedInfo?.updatedData
+  );
+  const result = res?.data;
+  return result;
+};

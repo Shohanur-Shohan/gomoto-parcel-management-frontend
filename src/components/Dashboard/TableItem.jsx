@@ -27,6 +27,7 @@ const TableItem = ({ data, refetch }) => {
     parcel_type,
     status,
     delivery_men_id,
+    apporoximate_delivery_date,
   } = data;
 
   const handleCancel = async (id) => {
@@ -38,12 +39,6 @@ const TableItem = ({ data, refetch }) => {
     console.log(result);
     toast.success("Booking Cancelled");
     refetch();
-    // if (result.deletedCount === 1) {
-    //   refetch();
-    //   toast.success("Booking Cancelled");
-    // } else {
-    //   toast.error("Booking Cancelation Failed");
-    // }
   };
 
   const handleReview = (id) => {
@@ -56,10 +51,10 @@ const TableItem = ({ data, refetch }) => {
     toast.success("Payment Suceess");
   };
 
-  const parseDeliveryDate = parsePPPDate(delivery_date);
+  // const parseDeliveryDate = parsePPPDate(delivery_date);
 
-  const apporoximateDate = addDays(parseDeliveryDate, 3);
-  const formattedApproximateDate = format(apporoximateDate, "MMMM do, yyyy");
+  // const apporoximateDate = addDays(parseDeliveryDate, 3);
+  // const formattedApproximateDate = format(apporoximateDate, "MMMM do, yyyy");
 
   return (
     <>
@@ -67,7 +62,7 @@ const TableItem = ({ data, refetch }) => {
         <TableCell className="line-clamp-2">{parcel_type}</TableCell>
         <TableCell>{booking_date}</TableCell>
         <TableCell>{delivery_date}</TableCell>
-        <TableCell>{formattedApproximateDate}</TableCell>
+        <TableCell>{apporoximate_delivery_date}</TableCell>
         <TableCell>{delivery_men_id}</TableCell>
         <TableCell>
           <Badge className="capitalize">{status}</Badge>
