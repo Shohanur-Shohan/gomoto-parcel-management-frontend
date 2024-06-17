@@ -131,7 +131,7 @@ const BookAParcel = () => {
             <Input
               id="booked_user_number"
               name="booked_user_number"
-              type="text"
+              type="number"
               placeholder="Your phone number"
               {...register("booked_user_number")}
               required
@@ -187,7 +187,7 @@ const BookAParcel = () => {
             <Input
               id="receriver_number"
               name="receriver_number"
-              type="text"
+              type="number"
               placeholder="Receivers number"
               {...register("receriver_number")}
               required

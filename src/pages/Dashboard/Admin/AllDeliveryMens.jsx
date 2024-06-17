@@ -17,7 +17,7 @@ const AllDeliveryMens = () => {
   const { user } = Auth;
 
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["allDeliveryDrivers"],
+    queryKey: ["allDeliveryMens"],
     queryFn: async () => await allDeliveryMen(),
     enabled: !!user?.email,
   });
@@ -33,7 +33,7 @@ const AllDeliveryMens = () => {
   return (
     <div className="w-full px-2 py-10 sm:px-3 md:px-4">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold tracking-tight">All Parcels</h2>
+        <h2 className="text-2xl font-bold tracking-tight">All Delivery Mens</h2>
       </div>
 
       <div className="relative max-w-[270px] overflow-x-scroll sm:max-w-[600px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[1080px] 2xl:max-w-full 2xl:overflow-hidden">

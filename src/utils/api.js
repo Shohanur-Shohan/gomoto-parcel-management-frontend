@@ -130,3 +130,11 @@ export const searchByDate = async (filter) => {
     return result;
   }
 };
+
+//all users lists
+export const AllUsersList = async () => {
+  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/allUsersList`);
+
+  const result = res?.data;
+  return result;
+};

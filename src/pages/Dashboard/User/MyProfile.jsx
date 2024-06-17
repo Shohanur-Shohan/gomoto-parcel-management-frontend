@@ -25,6 +25,7 @@ export default function MyProfile() {
   if (loading) {
     return <Loader />;
   }
+
   const handleProfileUpdate = async (data) => {
     setImageUploading(true);
     const image = data?.image[0];
@@ -42,6 +43,7 @@ export default function MyProfile() {
       });
     setImageUploading(false);
   };
+
   return (
     <section className="w-full py-[40px]">
       <form

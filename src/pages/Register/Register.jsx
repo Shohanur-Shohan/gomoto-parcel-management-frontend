@@ -165,7 +165,7 @@ const Register = () => {
               <Input
                 id="user_phone"
                 name="user_phone"
-                type="user_phone"
+                type="number"
                 {...register("user_phone")}
                 placeholder="m@example.com"
                 required

@@ -186,7 +186,7 @@ const UpdateBookedParcel = () => {
             <Input
               id="booked_user_number"
               name="booked_user_number"
-              type="text"
+              type="number"
               defaultValue={booked_user_number || 0}
               {...register("booked_user_number")}
               required
@@ -243,7 +243,7 @@ const UpdateBookedParcel = () => {
             <Input
               id="receriver_number"
               name="receriver_number"
-              type="text"
+              type="number"
               defaultValue={receriver_number}
               placeholder="Receivers number"
               {...register("receriver_number")}
