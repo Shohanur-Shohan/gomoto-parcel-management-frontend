@@ -47,10 +47,12 @@ const Register = () => {
       const email = data?.email;
       const password = data?.password;
       const userType = data?.user_type;
+      const user_phone = data?.user_phone;
       const userInfo = {
         userName: displayName,
         userEmail: email,
         user_type: userType,
+        user_phone: user_phone,
       };
 
       //create user
@@ -154,6 +156,17 @@ const Register = () => {
                 name="email"
                 type="email"
                 {...register("email")}
+                placeholder="m@example.com"
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="user_phone">Phone</Label>
+              <Input
+                id="user_phone"
+                name="user_phone"
+                type="user_phone"
+                {...register("user_phone")}
                 placeholder="m@example.com"
                 required
               />
