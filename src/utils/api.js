@@ -132,8 +132,11 @@ export const searchByDate = async (filter) => {
 };
 
 //all users lists
-export const AllUsersList = async () => {
-  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/allUsersList`);
+export const AllUsersList = async (data) => {
+  const { userEmail, currentPage } = data;
+  const res = await axios.get(
+    `${import.meta.env.VITE_BASE_URL}/allUsersList?currentPage=${currentPage}`
+  );
 
   const result = res?.data;
   return result;

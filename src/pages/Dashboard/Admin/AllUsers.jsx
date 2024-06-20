@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
 import { AllUsersList } from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
@@ -14,50 +14,50 @@ import AllUsersTableRow from "@/components/Dashboard/AllUsersTableRow";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const AllUsers = () => {
   const [Auth] = useAuth();
   const { user } = Auth;
   const [currentPage, setCurrentPage] = useState(0);
-  const [pages, setPages] = useState([]);
+  const [totalPages, setTotalPages] = useState([]);
 
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["allUserslist", user?.email],
-    queryFn: async () => await AllUsersList(user?.email),
+    queryKey: ["allUserslist", user?.email, currentPage],
+    queryFn: async () =>
+      await AllUsersList({ userEmail: user?.email, currentPage: currentPage }),
     enabled: !!user?.email,
   });
 
   useEffect(() => {
     if (data) {
-      const itemCount = data.length;
-      // setCount(itemCount);
+      const itemCount = data.totalItems;
       const totalPages = Math.ceil(itemCount / 5);
-      const newPages = [...Array(totalPages).keys()];
-      setPages(newPages);
+      setTotalPages([...Array(totalPages).keys()]);
     }
   }, [data]);
 
   const handlePrev = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
+      refetch();
     }
   };
 
   const handleNext = () => {
-    if (currentPage < pages.length - 1) {
+    if (currentPage < totalPages.length - 1) {
       setCurrentPage(currentPage + 1);
+      refetch();
     }
   };
 
-  console.log(currentPage);
+  useEffect(() => {
+    refetch();
+  }, [currentPage, refetch]);
 
   if (isLoading || !user?.email) {
     return <Loader />;
@@ -85,7 +85,7 @@ const AllUsers = () => {
             </TableRow>
           </TableHeader>
           <TableBody className="overflow-x-auto">
-            {!data || data.length === 0 ? (
+            {!data?.users || data.users.length === 0 ? (
               <tr>
                 <td
                   colSpan="10"
@@ -95,7 +95,7 @@ const AllUsers = () => {
                 </td>
               </tr>
             ) : (
-              data.map((item) => (
+              data.users.map((item) => (
                 <AllUsersTableRow
                   key={item?._id}
                   allData={item}
@@ -116,22 +116,17 @@ const AllUsers = () => {
               />
             </PaginationItem>
 
-            {pages.map((item, index) => {
-              return (
-                <PaginationItem key={index}>
-                  <PaginationLink
-                    onClick={() => setCurrentPage(item)}
-                    className={`cursor-pointer ${currentPage === item ? "bg-[#f7b814]" : ""}`}
-                  >
-                    {item}
-                  </PaginationLink>
-                </PaginationItem>
-              );
-            })}
+            {totalPages.map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  onClick={() => setCurrentPage(index)}
+                  className={`cursor-pointer ${currentPage === index ? "bg-[#f7b814]" : ""}`}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
 
-            {/* <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem> */}
             <PaginationItem>
               <PaginationNext onClick={handleNext} className="cursor-pointer" />
             </PaginationItem>
