@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
+import { useEffect } from "react";
 import useAuth from "@/hooks/useAuth";
 import { AllUsersList } from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
@@ -20,10 +20,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const AllUsers = () => {
   const [Auth] = useAuth();
   const { user } = Auth;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pages, setPages] = useState([]);
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["allUserslist", user?.email],
@@ -31,15 +35,37 @@ const AllUsers = () => {
     enabled: !!user?.email,
   });
 
+  useEffect(() => {
+    if (data) {
+      const itemCount = data.length;
+      // setCount(itemCount);
+      const totalPages = Math.ceil(itemCount / 5);
+      const newPages = [...Array(totalPages).keys()];
+      setPages(newPages);
+    }
+  }, [data]);
+
+  const handlePrev = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  console.log(currentPage);
+
   if (isLoading || !user?.email) {
     return <Loader />;
   }
 
   if (error) {
-    return <div>Error loading parcels</div>;
+    return <div>Error loading users</div>;
   }
-
-  // console.log(data);
 
   return (
     <div className="w-full px-2 py-10 sm:px-3 md:px-4">
@@ -65,7 +91,7 @@ const AllUsers = () => {
                   colSpan="10"
                   className="py-4 text-center text-xl font-medium text-red-500"
                 >
-                  No parcels found
+                  No users found
                 </td>
               </tr>
             ) : (
@@ -79,34 +105,40 @@ const AllUsers = () => {
             )}
           </TableBody>
         </Table>
-      </div>
 
-      {/* //pagination */}
-      <Pagination className="mt-6 justify-start">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="#" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#" isActive>
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
+        {/* //pagination */}
+        <Pagination className="mt-6 justify-start pb-5">
+          <PaginationContent className="rounded-sm border border-input">
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={handlePrev}
+                className="cursor-pointer"
+              />
+            </PaginationItem>
+
+            {pages.map((item, index) => {
+              return (
+                <PaginationItem key={index}>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(item)}
+                    className={`cursor-pointer ${currentPage === item ? "bg-[#f7b814]" : ""}`}
+                  >
+                    {item}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            })}
+
+            {/* <PaginationItem>
             <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="#" />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-      {/* //pagination */}
+          </PaginationItem> */}
+            <PaginationItem>
+              <PaginationNext onClick={handleNext} className="cursor-pointer" />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+        {/* //pagination */}
+      </div>
     </div>
   );
 };
