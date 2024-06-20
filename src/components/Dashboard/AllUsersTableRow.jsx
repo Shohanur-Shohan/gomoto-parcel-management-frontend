@@ -6,7 +6,17 @@ import toast from "react-hot-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "../ui/badge";
 import { useQuery } from "@tanstack/react-query";
-import { usersBookedParcels } from "@/utils/api";
+import { changeUserType, usersBookedParcels } from "@/utils/api";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 const AllUsersTableRow = ({ allData, refetch }) => {
   const { _id, userName, userEmail, user_type, user_phone } = allData;
@@ -27,11 +37,33 @@ const AllUsersTableRow = ({ allData, refetch }) => {
     enabled: !!userEmail && user_type === "user",
   });
 
-  const handleMakeDeliveryMen = (id) => {
-    console.log(id);
+  const handleMakeDeliveryMen = async (id) => {
+    const updatedInfo = {
+      userName: userName,
+      userEmail: userEmail,
+      user_type: user_type,
+      user_phone: user_phone,
+      parcel_delivered: [],
+      reviews: [],
+    };
+
+    const result = await changeUserType({
+      id: id,
+      changetype: "delivery_men",
+      updatedInfo: updatedInfo,
+    });
+    if (result?.matchedCount > 0) {
+      toast.success("New delivey men created!");
+      refetch();
+    }
   };
-  const handleMakeAdmin = (id) => {
-    console.log(id);
+
+  const handleMakeAdmin = async (id) => {
+    const result = await changeUserType({ id: id, changetype: "admin" });
+    if (result?.matchedCount > 0) {
+      toast.success("New admin created!");
+      refetch();
+    }
   };
 
   if (!allData || isLoading) {
@@ -62,16 +94,80 @@ const AllUsersTableRow = ({ allData, refetch }) => {
           ) : (
             <>
               <Button
-                variant="outline"
-                onClick={() => handleMakeDeliveryMen(_id)}
+                asChild
+                type="button"
+                variant="secondary"
+                className="cursor-pointer"
               >
-                Delivery Men
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="outline">Delivery Men</Button>
+                  </DialogTrigger>
+
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle className="text-center text-destructive lg:text-2xl">
+                        Are you sure?
+                      </DialogTitle>
+
+                      {/* select delivery date */}
+                      <Popover className="mb-2 mt-3 w-full">
+                        <PopoverTrigger asChild></PopoverTrigger>
+                        <PopoverContent className="w-auto p-0"></PopoverContent>
+                      </Popover>
+                      {/* select delivery date */}
+                    </DialogHeader>
+
+                    <DialogFooter className="justify-center sm:justify-center">
+                      <DialogClose asChild>
+                        <Button
+                          variant="destructive"
+                          onClick={() => handleMakeDeliveryMen(_id)}
+                        >
+                          Confirm
+                        </Button>
+                      </DialogClose>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </Button>
               <Button
-                variant="destructive"
-                onClick={() => handleMakeAdmin(_id)}
+                asChild
+                type="button"
+                variant="secondary"
+                className="cursor-pointer"
               >
-                Admin
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="destructive">Admin</Button>
+                  </DialogTrigger>
+
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle className="text-center text-destructive lg:text-2xl">
+                        Are you sure?
+                      </DialogTitle>
+
+                      {/* select delivery date */}
+                      <Popover className="mb-2 mt-3 w-full">
+                        <PopoverTrigger asChild></PopoverTrigger>
+                        <PopoverContent className="w-auto p-0"></PopoverContent>
+                      </Popover>
+                      {/* select delivery date */}
+                    </DialogHeader>
+
+                    <DialogFooter className="justify-center sm:justify-center">
+                      <DialogClose asChild>
+                        <Button
+                          variant="destructive"
+                          onClick={() => handleMakeAdmin(_id)}
+                        >
+                          Confirm
+                        </Button>
+                      </DialogClose>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </Button>
             </>
           )}

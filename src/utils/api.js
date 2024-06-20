@@ -138,3 +138,15 @@ export const AllUsersList = async () => {
   const result = res?.data;
   return result;
 };
+
+//change usertype
+export const changeUserType = async (data) => {
+  const { id, changetype, updatedInfo } = data;
+  const res = await axios.patch(
+    `${import.meta.env.VITE_BASE_URL}/changeUserType/${id}`,
+    { changetype, updatedInfo }
+  );
+
+  const result = res?.data;
+  return result;
+};
