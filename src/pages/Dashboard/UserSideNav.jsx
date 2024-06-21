@@ -6,7 +6,7 @@ const UserSideNav = () => {
     <>
       <NavLink
         to={"/"}
-        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:bg-muted hover:text-foreground"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,11 @@ const UserSideNav = () => {
       </NavLink>
       <NavLink
         to={"/dashboard/my-profile"}
-        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+        className={({ isActive }) =>
+          `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:bg-muted hover:text-foreground ${
+            isActive ? "bg-muted text-primary" : ""
+          }`
+        }
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +40,11 @@ const UserSideNav = () => {
       </NavLink>
       <NavLink
         to={"/dashboard/book-parcel"}
-        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+        className={({ isActive }) =>
+          `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:bg-muted hover:text-foreground ${
+            isActive ? "bg-muted text-primary" : ""
+          }`
+        }
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +62,11 @@ const UserSideNav = () => {
       </NavLink>
       <NavLink
         to={"/dashboard/my-parcels"}
-        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+        className={({ isActive }) =>
+          `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:bg-muted hover:text-foreground ${
+            isActive ? "bg-muted text-primary" : ""
+          }`
+        }
       >
         <Package className="h-4 w-4" />
         My Parcels

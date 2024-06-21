@@ -6,7 +6,7 @@ const AdminSideNav = () => {
     <>
       <NavLink
         to={"/"}
-        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:bg-muted hover:text-foreground"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,11 @@ const AdminSideNav = () => {
       </NavLink>
       <NavLink
         to={"/dashboard/statistics"}
-        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+        className={({ isActive }) =>
+          `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:bg-muted hover:text-foreground ${
+            isActive ? "bg-muted text-primary" : ""
+          }`
+        }
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +41,11 @@ const AdminSideNav = () => {
       </NavLink>
       <NavLink
         to={"/dashboard/users"}
-        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+        className={({ isActive }) =>
+          `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:bg-muted hover:text-foreground ${
+            isActive ? "bg-muted text-primary" : ""
+          }`
+        }
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +60,11 @@ const AdminSideNav = () => {
       </NavLink>
       <NavLink
         to={"/dashboard/delivery-mens"}
-        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+        className={({ isActive }) =>
+          `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:bg-muted hover:text-foreground ${
+            isActive ? "bg-muted text-primary" : ""
+          }`
+        }
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +79,11 @@ const AdminSideNav = () => {
       </NavLink>
       <NavLink
         to={"/dashboard/all-parcels"}
-        className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+        className={({ isActive }) =>
+          `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:bg-muted hover:text-foreground ${
+            isActive ? "bg-muted text-primary" : ""
+          }`
+        }
       >
         <Package className="h-4 w-4" />
         All Parcels
