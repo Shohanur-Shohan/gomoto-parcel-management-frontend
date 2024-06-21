@@ -7,6 +7,7 @@ import { createBrowserRouter } from "react-router-dom";
 import RoutesByRole from "./RoutesByRole";
 import { Dashboard } from "@/layout/Dashboard";
 import PrivateRoute from "./PrivateRoute";
+import UnderContraction from "@/pages/Error/UnderContraction";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,18 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <UnderContraction />,
+      },
+      {
+        path: "/services",
+        element: <UnderContraction />,
+      },
+      {
+        path: "/contact",
+        element: <UnderContraction />,
       },
       {
         path: "/login",
