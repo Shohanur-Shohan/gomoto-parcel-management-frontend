@@ -213,4 +213,11 @@ export const deliveryMen = async (id) => {
   return result;
 };
 
+//home statistics data
+export const statisticsData = async () => {
+  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/allusers`);
+  const result = res?.data;
+  return result;
+};
+
 //payment

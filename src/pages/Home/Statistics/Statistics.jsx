@@ -9,9 +9,25 @@ import { motion } from "framer-motion";
 import { fadeAnimation } from "@/utils/variants";
 import CountUp from "react-countup";
 import { useState } from "react";
+import { statisticsData } from "@/utils/api";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "@/components/Loader";
 
 const Statistics = () => {
   const [startCount, setStartCount] = useState(false);
+
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["statisticsData"],
+    queryFn: async () => await statisticsData(),
+  });
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div>Error loading parcels</div>;
+  }
 
   return (
     <section className="mb-[50px] mt-[100px]">
@@ -43,7 +59,7 @@ const Statistics = () => {
             <CardContent className="p-4 text-center">
               {startCount ? (
                 <CountUp
-                  end={100}
+                  end={data?.parcelBooked}
                   start={0}
                   duration={4}
                   className="text-center text-[70px] font-semibold"
@@ -67,7 +83,7 @@ const Statistics = () => {
             <CardContent className="p-4 text-center">
               {startCount ? (
                 <CountUp
-                  end={100}
+                  end={data?.parcelDelivered}
                   start={0}
                   duration={4}
                   className="text-center text-[70px] font-semibold"
@@ -91,7 +107,7 @@ const Statistics = () => {
             <CardContent className="p-4 text-center">
               {startCount ? (
                 <CountUp
-                  end={100}
+                  end={data?.totalUsers}
                   start={0}
                   duration={4}
                   className="text-center text-[70px] font-semibold"
