@@ -153,3 +153,24 @@ export const changeUserType = async (data) => {
   const result = res?.data;
   return result;
 };
+
+//all delivery lists
+export const allDeliveryLists = async (email) => {
+  const res = await axios.get(
+    `${import.meta.env.VITE_BASE_URL}/deliveryList/${email}`
+  );
+  const result = res?.data;
+  return result;
+};
+
+//update booked parcel by deliverymen
+export const deliveryMenUpdateBooked = async (data) => {
+  const { id, updatedInfo } = data;
+  const Email = updatedInfo?.userEmail;
+  const res = await axios.patch(
+    `${import.meta.env.VITE_BASE_URL}/updateBookedParcel/${Email}/${id}`,
+    updatedInfo
+  );
+  const result = res?.data;
+  return result;
+};
