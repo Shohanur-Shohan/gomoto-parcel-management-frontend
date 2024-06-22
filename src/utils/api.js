@@ -185,3 +185,12 @@ export const deliveryMEnReview = async (updatedData) => {
   const result = res?.data;
   return result;
 };
+
+//deliverymen reviews
+export const deliveryMenReviews = async (email) => {
+  const res = await axios.get(
+    `${import.meta.env.VITE_BASE_URL}/deliveyMenReviews/${email}`
+  );
+  const result = res?.data;
+  return result;
+};

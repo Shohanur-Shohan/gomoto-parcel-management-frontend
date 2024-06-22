@@ -24,10 +24,12 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useState } from "react";
+import { format } from "date-fns";
 
 const TableItem = ({ data, refetch, user }) => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState(null);
+  const [date, setDate] = useState(new Date());
   const {
     _id,
     booking_date,
@@ -58,6 +60,9 @@ const TableItem = ({ data, refetch, user }) => {
         rating: rating,
         review: review,
         reviewer: user?.email,
+        review_giver_name: user?.displayName,
+        image: user?.photoURL,
+        review_date: format(date, "PPP"),
       },
     };
     const result = await deliveryMEnReview(updatedData);
