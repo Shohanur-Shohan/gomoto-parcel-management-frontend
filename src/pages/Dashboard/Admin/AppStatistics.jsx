@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader";
 import {
   Card,
   CardContent,
@@ -5,6 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { statisticsData } from "@/utils/api";
+import { useQuery } from "@tanstack/react-query";
 import {
   Bar,
   BarChart,
@@ -20,7 +23,12 @@ import {
 } from "recharts";
 
 const AppStatistics = () => {
-  const data = [
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["statisticsData2"],
+    queryFn: async () => await statisticsData(),
+  });
+
+  const demo = [
     {
       name: "Page A",
       uv: 4000,
@@ -65,12 +73,22 @@ const AppStatistics = () => {
     },
   ];
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div>Error loading parcels</div>;
+  }
+
   return (
     <section className="w-full px-2 py-10">
       <div className="mb-6 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card className="border-input bg-muted/40">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Estimated Revenue
+            </CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -85,7 +103,7 @@ const AppStatistics = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
+            <div className="text-2xl font-bold">${data?.totalRevinue}</div>
             <p className="text-xs text-muted-foreground">
               +20.1% from last month
             </p>
@@ -93,7 +111,7 @@ const AppStatistics = () => {
         </Card>
         <Card className="border-input bg-muted/40">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
+            <CardTitle className="text-sm font-medium">Bookings</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -110,7 +128,7 @@ const AppStatistics = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
+            <div className="text-2xl font-bold">+{data?.parcelBooked}</div>
             <p className="text-xs text-muted-foreground">
               +180.1% from last month
             </p>
@@ -118,7 +136,7 @@ const AppStatistics = () => {
         </Card>
         <Card className="border-input bg-muted/40">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Sales</CardTitle>
+            <CardTitle className="text-sm font-medium">Delivered</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -134,7 +152,7 @@ const AppStatistics = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+12,234</div>
+            <div className="text-2xl font-bold">+{data?.parcelDelivered}</div>
             <p className="text-xs text-muted-foreground">
               +19% from last month
             </p>
@@ -142,7 +160,7 @@ const AppStatistics = () => {
         </Card>
         <Card className="border-input bg-muted/40">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Now</CardTitle>
+            <CardTitle className="text-sm font-medium">Active Users</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -157,10 +175,8 @@ const AppStatistics = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+573</div>
-            <p className="text-xs text-muted-foreground">
-              +201 since last hour
-            </p>
+            <div className="text-2xl font-bold">+{data?.totalUsers}</div>
+            <p className="text-xs text-muted-foreground">+2 since last hour</p>
           </CardContent>
         </Card>
       </div>
@@ -168,7 +184,7 @@ const AppStatistics = () => {
         <div className="h-[500px] w-full rounded-md border border-input bg-muted/40 py-4">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
-              data={data}
+              data={demo}
               margin={{
                 top: 5,
                 right: 5,
@@ -199,7 +215,7 @@ const AppStatistics = () => {
             <LineChart
               width={500}
               height={300}
-              data={data}
+              data={demo}
               margin={{
                 top: 5,
                 right: 5,
