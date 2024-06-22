@@ -174,3 +174,14 @@ export const deliveryMenUpdateBooked = async (data) => {
   const result = res?.data;
   return result;
 };
+
+//review to dilivery men
+export const deliveryMEnReview = async (updatedData) => {
+  const { delivery_men_id, data } = updatedData;
+  const res = await axios.patch(
+    `${import.meta.env.VITE_BASE_URL}/review_to_delivery_men/${delivery_men_id}`,
+    data
+  );
+  const result = res?.data;
+  return result;
+};

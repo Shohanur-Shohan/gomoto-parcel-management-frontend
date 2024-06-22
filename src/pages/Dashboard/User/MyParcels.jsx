@@ -109,7 +109,12 @@ const MyParcels = () => {
             ) : (
               data?.map((item) => {
                 return (
-                  <TableItem key={item?._id} data={item} refetch={refetch} />
+                  <TableItem
+                    key={item?._id}
+                    data={item}
+                    refetch={refetch}
+                    user={user}
+                  />
                 );
               })
             )}

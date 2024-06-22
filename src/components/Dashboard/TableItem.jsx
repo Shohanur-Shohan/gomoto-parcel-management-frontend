@@ -1,11 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { parsePPPDate } from "@/utils/ParseDate";
-import { addDays, format } from "date-fns";
 import PropTypes from "prop-types";
 import toast from "react-hot-toast";
-
 import { Link } from "react-router-dom";
 import {
   Dialog,
@@ -17,9 +14,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { cancelBookedParcel } from "@/utils/api";
+import { cancelBookedParcel, deliveryMEnReview } from "@/utils/api";
+import { Textarea } from "../ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { useState } from "react";
 
-const TableItem = ({ data, refetch }) => {
+const TableItem = ({ data, refetch, user }) => {
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState(null);
   const {
     _id,
     booking_date,
@@ -36,14 +44,28 @@ const TableItem = ({ data, refetch }) => {
       email: data?.booked_user_email,
     };
     const result = await cancelBookedParcel(deleteInfo);
-    console.log(result);
-    toast.success("Booking Cancelled");
-    refetch();
+    if (result) {
+      toast.success("Booking Cancelled");
+      refetch();
+    }
   };
 
-  const handleReview = (id) => {
-    console.log(id);
-    toast.success("Review Suceess");
+  const handleReview = async (id) => {
+    const updatedData = {
+      delivery_men_id: delivery_men_id,
+      data: {
+        parcel_id: id,
+        rating: rating,
+        review: review,
+        reviewer: user?.email,
+      },
+    };
+    const result = await deliveryMEnReview(updatedData);
+    if (result?.message) {
+      toast.error(`${result?.message}`);
+    } else if (result?.modifiedCount > 0) {
+      toast.success("Review Suceess");
+    }
   };
 
   const handlePayment = (id) => {
@@ -51,10 +73,11 @@ const TableItem = ({ data, refetch }) => {
     toast.success("Payment Suceess");
   };
 
-  // const parseDeliveryDate = parsePPPDate(delivery_date);
-
-  // const apporoximateDate = addDays(parseDeliveryDate, 3);
-  // const formattedApproximateDate = format(apporoximateDate, "MMMM do, yyyy");
+  const handleAvailable = () => {
+    toast.success(
+      `Order ${status === "cancelled" ? "cancelled" : `is ${status}`}`
+    );
+  };
 
   return (
     <>
@@ -123,15 +146,77 @@ const TableItem = ({ data, refetch }) => {
               </DialogFooter>
             </DialogContent>
           </Dialog>
-
-          {/* <Button onClick={() => handleCancel(_id)} variant="destructive">
-            Cancel
-          </Button> */}
         </TableCell>
         <TableCell className="text-right">
-          <Button onClick={() => handleReview(_id)} variant="outline">
-            Review
-          </Button>
+          {/* //review dialog */}
+          <Dialog>
+            {status === "delivered" ? (
+              <DialogTrigger asChild>
+                <Button variant="outline">Review</Button>
+              </DialogTrigger>
+            ) : (
+              <Button variant="outline" onClick={handleAvailable}>
+                Review
+              </Button>
+            )}
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <div className="w-full max-w-sm">
+                  <div className="flex flex-col items-center pb-4">
+                    <img
+                      className="mb-3 h-24 w-24 rounded-full shadow-lg"
+                      src={user?.photoURL}
+                      alt="Bonnie image"
+                    />
+                    <h5 className="my-2 text-xl font-medium text-gray-900">
+                      {user?.displayName}
+                    </h5>
+                    {/* select driver field */}
+                    <Select onValueChange={(e) => setRating(e)}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select Rating" />
+                      </SelectTrigger>
+
+                      <SelectContent>
+                        <SelectItem value={1}>1 Star</SelectItem>
+                        <SelectItem value={2}>2 Stars</SelectItem>
+                        <SelectItem value={3}>3 Stars</SelectItem>
+                        <SelectItem value={4}>4 Stars</SelectItem>
+                        <SelectItem value={5}>5 Stars</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {/* select driver field */}
+                    <Textarea
+                      id="review"
+                      name="review"
+                      type="text"
+                      className="mt-2"
+                      onChange={(e) => setReview(e.target.value)}
+                      placeholder="Give Your Review"
+                    />
+                    <h5 className="mb-1 mt-3 text-xl font-medium text-gray-900">
+                      Delivery Men ID:
+                    </h5>
+                    <h5 className="text-md font-medium text-gray-900">
+                      {delivery_men_id}
+                    </h5>
+                  </div>
+                </div>
+              </DialogHeader>
+
+              <DialogFooter className="justify-center sm:justify-center">
+                <DialogClose asChild>
+                  <Button
+                    onClick={() => handleReview(_id)}
+                    variant="destructive"
+                  >
+                    Confirm
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+          {/* //review dialog */}
         </TableCell>
         <TableCell className="text-right">
           <Button onClick={() => handlePayment(_id)} variant="outline">
@@ -145,5 +230,6 @@ const TableItem = ({ data, refetch }) => {
 TableItem.propTypes = {
   data: PropTypes.object,
   refetch: PropTypes.func,
+  user: PropTypes.object,
 };
 export default TableItem;
