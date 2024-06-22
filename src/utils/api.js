@@ -212,3 +212,5 @@ export const deliveryMen = async (id) => {
   const result = res?.data;
   return result;
 };
+
+//payment

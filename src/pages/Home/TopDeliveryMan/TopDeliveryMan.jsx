@@ -17,9 +17,9 @@ const TopDeliveryMan = () => {
   const [Auth] = useAuth();
   const { user } = Auth;
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["topDeliveryMen", user?.email],
+    queryKey: ["topDeliveryMen"],
     queryFn: async () => await topDeliveryMen(),
-    enabled: !!user?.email,
+    // enabled: !!user?.email,
   });
 
   if (isLoading) {
