@@ -194,3 +194,21 @@ export const deliveryMenReviews = async (email) => {
   const result = res?.data;
   return result;
 };
+
+//top 4 delivery men
+export const topDeliveryMen = async () => {
+  const res = await axios.get(
+    `${import.meta.env.VITE_BASE_URL}/topDeliveryMen`
+  );
+  const result = res?.data;
+  return result;
+};
+
+//single delivey men data
+export const deliveryMen = async (id) => {
+  const res = await axios.get(
+    `${import.meta.env.VITE_BASE_URL}/singleDeliveryMen/${id}`
+  );
+  const result = res?.data;
+  return result;
+};

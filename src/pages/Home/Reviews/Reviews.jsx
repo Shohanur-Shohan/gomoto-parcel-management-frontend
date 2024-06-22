@@ -88,8 +88,7 @@ const Reviews = () => {
                     ))}
                   </div>
                   <CardDescription className="font-catamaran mt-3 h-[50px] text-lg font-semibold leading-8 transition-all duration-500 group-hover:text-gray-800">
-                    {"''"}Pagedone is simply the best tool of investment in the
-                    market right now.{"''"}
+                    Super Fast Delivery & great service.
                   </CardDescription>
                 </div>
               </Card>
@@ -128,8 +127,7 @@ const Reviews = () => {
                     ))}
                   </div>
                   <CardDescription className="font-catamaran mt-3 h-[50px] text-lg font-semibold leading-8 transition-all duration-500 group-hover:text-gray-800">
-                    {"''"}Pagedone is simply the best tool of investment in the
-                    market right now.{"''"}
+                    Super Fast Delivery & great service.
                   </CardDescription>
                 </div>
               </Card>
@@ -168,8 +166,7 @@ const Reviews = () => {
                     ))}
                   </div>
                   <CardDescription className="font-catamaran mt-3 h-[50px] text-lg font-semibold leading-8 transition-all duration-500 group-hover:text-gray-800">
-                    {"''"}Pagedone is simply the best tool of investment in the
-                    market right now.{"''"}
+                    Super Fast Delivery & great service.
                   </CardDescription>
                 </div>
               </Card>
@@ -208,8 +205,7 @@ const Reviews = () => {
                     ))}
                   </div>
                   <CardDescription className="font-catamaran mt-3 h-[50px] text-lg font-semibold leading-8 transition-all duration-500 group-hover:text-gray-800">
-                    {"''"}Pagedone is simply the best tool of investment in the
-                    market right now.{"''"}
+                    Super Fast Delivery & great service.
                   </CardDescription>
                 </div>
               </Card>
@@ -248,8 +244,7 @@ const Reviews = () => {
                     ))}
                   </div>
                   <CardDescription className="font-catamaran mt-3 h-[50px] text-lg font-semibold leading-8 transition-all duration-500 group-hover:text-gray-800">
-                    {"''"}Pagedone is simply the best tool of investment in the
-                    market right now.{"''"}
+                    Super Fast Delivery & great service.
                   </CardDescription>
                 </div>
               </Card>
