@@ -165,7 +165,7 @@ const TableItem = ({ data, refetch, user }) => {
                   <div className="flex flex-col items-center pb-4">
                     <img
                       className="mb-3 h-24 w-24 rounded-full shadow-lg"
-                      src={user?.photoURL}
+                      src={user?.photoURL || "/assets/user.png"}
                       alt="Bonnie image"
                     />
                     <h5 className="my-2 text-xl font-medium text-gray-900">

@@ -73,8 +73,10 @@ const AdminAllParcelsTableRow = ({ allData, refetch }) => {
       const res = await adminUpdateBookedParcel(updatedInfo);
       if (res?.modifiedCount > 0) {
         toast.success("Suceessfully Updated");
+        refetch();
       } else {
         toast.error("Failed to Update");
+        refetch();
       }
     }
   };

@@ -21,13 +21,20 @@ const AllDeliveryMenTableRow = ({ allData, refetch }) => {
       </tr>
     );
   }
+
+  const averageReview = reviews.reduce(
+    (accumulator, item) => accumulator + item?.rating,
+    0
+  );
+  const averageRating = averageReview / parcel_delivered?.length;
+
   return (
     <>
       <TableRow className="border-input">
         <TableCell>{userName}</TableCell>
         <TableCell>{user_phone}</TableCell>
-        <TableCell>Not available</TableCell>
-        <TableCell>Not available</TableCell>
+        <TableCell>{parcel_delivered?.length || "Not available"} </TableCell>
+        <TableCell>{averageRating || "Not available"} </TableCell>
       </TableRow>
     </>
   );
