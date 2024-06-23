@@ -31,21 +31,32 @@
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Beautiful Pages**: Includes Home, About, Gallery, Rooms, My booked Rooms, Login, Register, Contact
+👉 **Beautiful Pages**: Includes Home, About, Services, Contact, Register, Login, Error page.
+
+👉 **Authentication**: Users can register, login with email/password & google.
+
+👉 **User Dashboard**: After login user will redirect to user dashboard. User will have My Profile page, Book a Parcel Page, My Parcels Page.
+
+- My Profile Page: User can update their profile info & upload profile image in this page.
+- Book a Parcel Page: User can book a parcel in this page
+- My Parcels Page: User can see all of his booked parcels in this page. User can update their booking date, cancel the booking & see booking parcels status.
+- After parcel is delivered user can leave a review to delivery men.
+
+👉 **Delivery Men Dashboard**: After login as a delivery men they will redirect to delivery-men dashboard. Delivery Men will have My Delivery Lists, My Reviews Page.
+
+- My Delivery Lists page: Delivery men will see all the bookings that has been assigned to him. He can see delivery location. He can cancel booking or deliver them.
+- My Reviews Page: Delivery men can see all of his reviews in this page.
+
+👉 **Admin Dashboard**: After login admin will redirect to admin dashboard. Admin will have Statistics page, All user page, all delivery men page, all parcels page.
+
+- Statistics Page: admin can see websites statistics data like sales, total users, total bookings, total parcel delivered. & other.
+- All User Page: admin can see all the users in this page. Admin can make a user delivery men or admin.
+- All Delivery Men page: Admin can see all the delivery men in this page. And see total parcel deliverd & average reviews of all delivery mens.
+- All Parcels Page: Admin can see all the booked parcels and assigned them to specific delivery men. Also admin can see status of parcels.
 
 👉 **Animations**: Engaging effects triggered by mouse movement and scrolling by Animation on scroll.
 
 👉 **Responsive**: Ensures seamless functionality and full responsive across all devices.
-
-👉 **Authentication**: Users can register, login with email/password & google.
-
-👉 **Rooms Page**: Users can view all the Rooms. Filter them by price. Every Room has dedicated Details page.
-
-👉 **Single Room**: From Single room page users can get detailed information about that room. Users can swipe through room image like a slider. Customer can see others customers review about that room. Also customer can book a room by clicking book now button.
-
-👉 **Room Review** After booking a room a user can then give a feedback about that room from room details page.
-
-👉 **My Booking**: In my booking page user can see all their booked room. A user can preview, update date or cancel his/her room.
 
 ## <a name="quick-start">🤸 Quick Start</a>
 
@@ -80,5 +91,16 @@ Open [http://localhost:5173](http://localhost:5173) in your browser to view the 
 **Live Preview**
 
 ```bash
-https://kinsley-hotel-booking.netlify.app
+https://gomoto-parcel-management.netlify.app
+```
+
+```bash
+"Admin email": shohanxadmin@gmail.com
+"Admin password": shohaN@1
+
+"Delivery Men’s email": samiul@gmail.com
+"Delivery Men’s password": shohaN@1
+
+"Client Side Github Repository Link": https://github.com/programming-hero-web-course1/b9a12-client-side-Shohanur-Shohan
+"Server Side Github Repository Link": https://github.com/programming-hero-web-course1/b9a12-server-side-Shohanur-Shohan
 ```
